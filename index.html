@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Core Dynamics — Le numérique et la stratégie pour ceux qui font vraiment le travail</title>
+<title>Core Dynamics — Sites Web 3D & Visibilité pour Artisans et Pro du Bâtiment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1C2B33;
-    --ink-soft:#33454F;
-    --paper:#F7F5F0;
-    --paper-dim:#EDEAE1;
+    --ink:#162228;
+    --ink-soft:#2C3E47;
+    --paper:#F8F6F0;
+    --paper-dim:#ECE8DF;
     --signal:#E8622C;
     --signal-dark:#C74E1F;
-    --moss:#5C7A72;
-    --moss-dark:#425A54;
-    --line:#D8D2C2;
+    --moss:#4A6B62;
+    --moss-dark:#344C46;
+    --line:#D6D0C0;
     --white:#FFFFFF;
+    --shadow:0 12px 32px rgba(22,34,40,0.08);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -26,558 +27,554 @@
     background:var(--paper);
     color:var(--ink);
     font-family:'Inter',sans-serif;
-    line-height:1.5;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,h4{
     font-family:'Zilla Slab',serif;
-    font-weight:600;
+    font-weight:700;
     color:var(--ink);
-    line-height:1.08;
+    line-height:1.1;
     letter-spacing:-0.01em;
   }
-  .mono{
-    font-family:'Roboto Mono',monospace;
-  }
+  .mono{font-family:'Roboto Mono',monospace;}
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1140px;margin:0 auto;padding:0 28px;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
   img,svg{display:block;max-width:100%;}
   :focus-visible{outline:3px solid var(--signal);outline-offset:3px;}
 
-  /* ---------- NAV ---------- */
+  /* NAV */
   .nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(247,245,240,0.92);
-    backdrop-filter:blur(6px);
+    position:sticky;top:0;z-index:100;
+    background:rgba(248,246,240,0.94);
+    backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
   .nav .wrap{
     display:flex;align-items:center;justify-content:space-between;
-    height:72px;
+    height:74px;
   }
   .brand{
-    display:flex;align-items:center;gap:10px;
-    font-family:'Zilla Slab',serif;font-weight:700;font-size:1.15rem;
-    letter-spacing:-0.01em;
+    display:flex;align-items:center;gap:12px;
+    font-family:'Zilla Slab',serif;font-weight:700;font-size:1.2rem;
   }
   .brand .mark{
-    width:34px;height:34px;background:var(--ink);
+    width:36px;height:36px;background:var(--ink);
     display:flex;align-items:center;justify-content:center;
-    color:var(--signal);font-family:'Roboto Mono',monospace;font-weight:600;font-size:0.85rem;
-    transform:rotate(-2deg);
+    color:var(--signal);font-family:'Roboto Mono',monospace;font-weight:700;font-size:0.9rem;
+    border-radius:2px;
   }
-  .nav-links{display:flex;gap:32px;align-items:center;}
-  .nav-links a{font-size:0.92rem;font-weight:500;color:var(--ink-soft);transition:color .15s;}
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-links a{font-size:0.9rem;font-weight:500;color:var(--ink-soft);transition:color .15s;}
   .nav-links a:hover{color:var(--signal-dark);}
   .nav-cta{
-    background:var(--ink);color:var(--paper)!important;
-    padding:10px 20px;font-weight:600;font-size:0.88rem;
-    border:1px solid var(--ink);
+    background:var(--signal);color:var(--white)!important;
+    padding:11px 22px;font-weight:600;font-size:0.88rem;
+    border-radius:2px;transition:all .15s ease;
   }
-  .nav-cta:hover{background:var(--signal);border-color:var(--signal);}
-  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;}
-  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;}
+  .nav-cta:hover{background:var(--signal-dark);transform:translateY(-1px);}
 
-  /* ---------- HERO ---------- */
-  .hero{padding:88px 0 64px;position:relative;overflow:hidden;}
-  .hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:start;}
+  /* HERO */
+  .hero{padding:80px 0 64px;position:relative;}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
-    font-family:'Roboto Mono',monospace;font-size:0.76rem;font-weight:500;
-    color:var(--moss-dark);background:rgba(92,122,114,0.1);
-    padding:6px 12px;margin-bottom:22px;
-    border:1px solid rgba(92,122,114,0.25);
+    font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
+    color:var(--moss-dark);background:rgba(74,107,98,0.12);
+    padding:6px 14px;margin-bottom:20px;
+    border:1px solid rgba(74,107,98,0.25);border-radius:2px;
   }
-  .eyebrow .dot{width:6px;height:6px;background:var(--signal);border-radius:50%;}
-  .hero h1{font-size:clamp(2.3rem,4.2vw,3.4rem);margin-bottom:22px;}
-  .hero h1 em{font-style:normal;color:var(--signal-dark);}
-  .hero p.lead{font-size:1.15rem;color:var(--ink-soft);max-width:520px;margin-bottom:32px;}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+  .eyebrow .dot{width:7px;height:7px;background:var(--signal);border-radius:50%;}
+  .hero h1{font-size:clamp(2.2rem,4vw,3.3rem);margin-bottom:20px;}
+  .hero h1 em{font-style:normal;color:var(--signal-dark);background:linear-gradient(180deg,transparent 70%,rgba(232,98,44,0.18) 70%);}
+  .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:540px;margin-bottom:32px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
   .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:15px 26px;font-weight:600;font-size:0.95rem;
-    border:1px solid transparent;cursor:pointer;transition:all .15s;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px 28px;font-weight:600;font-size:0.95rem;
+    border:1px solid transparent;border-radius:2px;cursor:pointer;transition:all .15s ease;
   }
   .btn-primary{background:var(--signal);color:var(--white);}
   .btn-primary:hover{background:var(--signal-dark);transform:translateY(-1px);}
   .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
   .btn-ghost:hover{background:var(--ink);color:var(--paper);}
-  .hero-trust{display:flex;gap:28px;flex-wrap:wrap;}
+  .hero-trust{display:flex;gap:32px;padding-top:20px;border-top:1px solid var(--line);}
   .hero-trust div{font-size:0.82rem;color:var(--ink-soft);}
-  .hero-trust strong{display:block;font-family:'Zilla Slab',serif;font-size:1.5rem;color:var(--ink);}
+  .hero-trust strong{display:block;font-family:'Zilla Slab',serif;font-size:1.4rem;color:var(--ink);}
 
-  /* fiche de constat — signature element */
-  .constat{
+  /* CARD PREVIEW HERO */
+  .preview-card{
     background:var(--white);
     border:1px solid var(--line);
-    box-shadow:6px 6px 0 var(--ink);
+    box-shadow:var(--shadow);
     padding:0;
-    transform:rotate(0.6deg);
+    position:relative;
   }
-  .constat-head{
+  .preview-head{
     background:var(--ink);color:var(--paper);
     padding:14px 20px;
     display:flex;justify-content:space-between;align-items:center;
-    font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.04em;
-    text-transform:uppercase;
+    font-family:'Roboto Mono',monospace;font-size:0.75rem;
   }
-  .constat-head span:last-child{color:var(--signal);}
-  .constat-body{padding:24px 20px;}
-  .constat-row{
-    display:flex;justify-content:space-between;gap:14px;
-    padding:13px 0;border-bottom:1px dashed var(--line);
-    font-size:0.92rem;
+  .preview-head .badge{
+    background:var(--signal);color:var(--white);
+    padding:2px 8px;font-size:0.68rem;font-weight:600;text-transform:uppercase;
   }
-  .constat-row:last-child{border-bottom:none;}
-  .constat-row .label{color:var(--ink-soft);}
-  .constat-row .val{font-family:'Roboto Mono',monospace;font-weight:600;font-size:0.86rem;text-align:right;}
+  .preview-body{padding:24px 20px;}
+  .preview-stat{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 0;border-bottom:1px dashed var(--line);
+    font-size:0.9rem;
+  }
+  .preview-stat:last-child{border-bottom:none;}
+  .preview-stat .val{font-family:'Roboto Mono',monospace;font-weight:600;}
   .val.bad{color:var(--signal-dark);}
   .val.ok{color:var(--moss-dark);}
-  .constat-foot{
+  .preview-foot{
     padding:16px 20px;background:var(--paper-dim);
-    font-size:0.84rem;color:var(--ink-soft);font-style:italic;
+    font-size:0.85rem;color:var(--ink-soft);font-style:italic;
     border-top:1px solid var(--line);
   }
 
-  /* ---------- SECTION SHELL ---------- */
+  /* SECTIONS */
   section{padding:88px 0;}
   .section-alt{background:var(--paper-dim);}
   .kicker{
-    font-family:'Roboto Mono',monospace;font-size:0.76rem;font-weight:600;
+    font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
     color:var(--signal-dark);letter-spacing:0.06em;text-transform:uppercase;
     margin-bottom:12px;display:block;
   }
-  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head{max-width:680px;margin-bottom:52px;}
   .section-head h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:16px;}
   .section-head p{color:var(--ink-soft);font-size:1.05rem;}
 
-  /* ---------- LE CONSTAT (pourquoi) ---------- */
-  .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .problem-card{background:var(--white);padding:32px 28px;}
-  .problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.78rem;color:var(--moss-dark);margin-bottom:14px;display:block;}
-  .problem-card h3{font-size:1.15rem;margin-bottom:10px;}
-  .problem-card p{color:var(--ink-soft);font-size:0.95rem;}
+  /* PROBLEM GRID */
+  .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .problem-card{
+    background:var(--white);padding:32px 26px;
+    border:1px solid var(--line);box-shadow:var(--shadow);
+  }
+  .problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.8rem;color:var(--signal-dark);margin-bottom:16px;display:block;}
+  .problem-card h3{font-size:1.2rem;margin-bottom:12px;}
+  .problem-card p{color:var(--ink-soft);font-size:0.95rem;line-height:1.6;}
 
-  /* ---------- OFFRE — 3 étages ---------- */
-  .offer-stack{display:flex;flex-direction:column;gap:0;border:1px solid var(--ink);}
+  /* OFFERS STACK */
+  .offer-stack{display:flex;flex-direction:column;gap:16px;}
   .offer-tier{
     display:grid;grid-template-columns:220px 1fr 260px;
-    gap:28px;padding:36px 32px;
-    background:var(--white);
-    border-bottom:1px solid var(--line);
+    gap:28px;padding:32px;
+    background:var(--white);border:1px solid var(--line);
     align-items:center;
   }
-  .offer-tier:last-child{border-bottom:none;}
-  .offer-tier.highlight{background:var(--ink);color:var(--paper);}
-  .offer-tier.highlight .tier-label,
-  .offer-tier.highlight h3,
-  .offer-tier.highlight p{color:var(--paper);}
+  .offer-tier.highlight{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+  }
+  .offer-tier.highlight h3, .offer-tier.highlight p{color:var(--paper);}
   .offer-tier.highlight .tier-num{color:var(--signal);}
   .tier-label{display:flex;flex-direction:column;gap:6px;}
-  .tier-num{font-family:'Roboto Mono',monospace;font-size:0.78rem;color:var(--moss-dark);}
+  .tier-num{font-family:'Roboto Mono',monospace;font-size:0.8rem;color:var(--moss-dark);}
   .tier-tag{
     font-family:'Roboto Mono',monospace;font-size:0.7rem;
     background:var(--moss);color:var(--white);
-    padding:3px 9px;width:fit-content;text-transform:uppercase;letter-spacing:0.04em;
+    padding:3px 8px;width:fit-content;text-transform:uppercase;
   }
   .offer-tier.highlight .tier-tag{background:var(--signal);}
-  .offer-tier h3{font-size:1.35rem;margin-bottom:8px;}
+  .offer-tier h3{font-size:1.3rem;margin-bottom:8px;}
   .offer-tier p{color:var(--ink-soft);font-size:0.95rem;}
   .tier-price{text-align:right;}
-  .tier-price .amount{font-family:'Zilla Slab',serif;font-size:1.5rem;font-weight:700;}
-  .tier-price .note{font-family:'Roboto Mono',monospace;font-size:0.72rem;color:var(--moss-dark);margin-top:4px;}
-  .offer-tier.highlight .tier-price .note{color:#B9CFC8;}
+  .tier-price .amount{font-family:'Zilla Slab',serif;font-size:1.6rem;font-weight:700;}
+  .tier-price .note{font-family:'Roboto Mono',monospace;font-size:0.75rem;color:var(--moss-dark);margin-top:4px;}
+  .offer-tier.highlight .tier-price .note{color:#C2D6D0;}
 
-  /* ---------- PROCESSUS ---------- */
-  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
-  .process::before{
-    content:"";position:absolute;top:26px;left:6%;right:6%;height:1px;
-    background:repeating-linear-gradient(to right,var(--line) 0 8px,transparent 8px 14px);
-    z-index:0;
+  /* PROCESS */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .process-step{
+    background:var(--white);padding:28px 22px;
+    border:1px solid var(--line);
   }
-  .process-step{position:relative;z-index:1;padding:0 20px;}
   .process-step .step-mark{
-    width:52px;height:52px;background:var(--paper);border:2px solid var(--ink);
+    width:44px;height:44px;background:var(--ink);color:var(--signal);
     display:flex;align-items:center;justify-content:center;
-    font-family:'Roboto Mono',monospace;font-weight:600;margin-bottom:18px;
+    font-family:'Roboto Mono',monospace;font-weight:700;margin-bottom:20px;
   }
-  .process-step h4{font-size:1.05rem;margin-bottom:8px;}
-  .process-step p{font-size:0.88rem;color:var(--ink-soft);}
+  .process-step h4{font-size:1.1rem;margin-bottom:10px;}
+  .process-step p{font-size:0.9rem;color:var(--ink-soft);}
 
-  /* ---------- PARCOURS / CRÉDIBILITÉ ---------- */
-  .cred{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center;}
-  .cred-visual{
-    background:var(--ink);color:var(--paper);padding:36px;
-    border:1px solid var(--ink);
-  }
-  .cred-line{
-    display:flex;justify-content:space-between;gap:16px;
-    padding:16px 0;border-bottom:1px solid rgba(247,245,240,0.15);
-    font-size:0.9rem;
-  }
-  .cred-line:last-child{border-bottom:none;}
-  .cred-line .yr{font-family:'Roboto Mono',monospace;color:var(--signal);font-size:0.82rem;white-space:nowrap;}
-  .cred-line .what{color:var(--paper);opacity:0.92;}
-  .cred-text h2{margin-bottom:20px;}
-  .cred-text p{color:var(--ink-soft);margin-bottom:16px;font-size:1.02rem;}
-  .cred-text p strong{color:var(--ink);}
-
-  /* ---------- TARIFS ---------- */
-  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--ink);}
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
   .price-card{
-    background:var(--white);padding:32px 28px;
-    border-right:1px solid var(--line);
+    background:var(--white);padding:36px 28px;
+    border:1px solid var(--line);
     display:flex;flex-direction:column;
   }
-  .price-card:last-child{border-right:none;}
-  .price-card.mid{background:var(--ink);color:var(--paper);}
-  .price-card.mid h3, .price-card.mid .desc{color:var(--paper);}
-  .price-card.mid .price-num{color:var(--signal);}
-  .price-card.mid .featlist li{color:#D9D4C6;border-color:rgba(247,245,240,0.15);}
+  .price-card.featured{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+    transform:scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,0.18);
+  }
+  .price-card.featured h3, .price-card.featured .desc{color:var(--paper);}
+  .price-card.featured .price-num{color:var(--signal);}
+  .price-card.featured .featlist li{color:#DFDAD0;border-color:rgba(247,245,240,0.15);}
   .price-badge{
-    font-family:'Roboto Mono',monospace;font-size:0.68rem;text-transform:uppercase;
-    color:var(--moss-dark);letter-spacing:0.05em;margin-bottom:10px;
+    font-family:'Roboto Mono',monospace;font-size:0.72rem;text-transform:uppercase;
+    color:var(--moss-dark);letter-spacing:0.05em;margin-bottom:12px;
   }
-  .price-card.mid .price-badge{color:var(--signal);}
-  .price-card h3{font-size:1.2rem;margin-bottom:10px;}
-  .price-card .desc{font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;min-height:40px;}
-  .price-num{font-family:'Zilla Slab',serif;font-size:2.1rem;font-weight:700;margin-bottom:4px;}
-  .price-sub{font-family:'Roboto Mono',monospace;font-size:0.74rem;color:var(--moss-dark);margin-bottom:24px;}
-  .price-card.mid .price-sub{color:#B9CFC8;}
-  .featlist{list-style:none;flex:1;margin-bottom:24px;}
+  .price-card.featured .price-badge{color:var(--signal);}
+  .price-card h3{font-size:1.3rem;margin-bottom:10px;}
+  .price-card .desc{font-size:0.9rem;color:var(--ink-soft);margin-bottom:24px;min-height:44px;}
+  .price-num{font-family:'Zilla Slab',serif;font-size:2.2rem;font-weight:700;margin-bottom:4px;}
+  .price-sub{font-family:'Roboto Mono',monospace;font-size:0.78rem;color:var(--moss-dark);margin-bottom:24px;}
+  .price-card.featured .price-sub{color:#B9CFC8;}
+  .featlist{list-style:none;flex:1;margin-bottom:28px;}
   .featlist li{
-    font-size:0.87rem;padding:9px 0;border-bottom:1px dashed var(--line);
-    display:flex;gap:8px;
+    font-size:0.88rem;padding:10px 0;border-bottom:1px dashed var(--line);
+    display:flex;gap:10px;
   }
-  .featlist li::before{content:"—";color:var(--signal-dark);flex-shrink:0;}
-  .price-card.mid .featlist li::before{color:var(--signal);}
-  .price-note{font-size:0.78rem;color:var(--moss-dark);text-align:center;margin-top:24px;font-family:'Roboto Mono',monospace;}
+  .featlist li::before{content:"✓";color:var(--signal-dark);font-weight:bold;}
+  .price-card.featured .featlist li::before{color:var(--signal);}
 
-  /* ---------- FAQ ---------- */
-  .faq-item{border-bottom:1px solid var(--line);padding:26px 0;}
-  .faq-item h4{font-size:1.05rem;margin-bottom:10px;display:flex;gap:12px;}
-  .faq-item h4 .q-mark{font-family:'Roboto Mono',monospace;color:var(--signal-dark);}
-  .faq-item p{color:var(--ink-soft);font-size:0.95rem;padding-left:28px;}
+  /* FAQ */
+  .faq-list{max-width:800px;margin:0 auto;}
+  .faq-item{background:var(--white);border:1px solid var(--line);padding:24px;margin-bottom:16px;}
+  .faq-item h4{font-size:1.1rem;margin-bottom:10px;display:flex;gap:12px;align-items:baseline;}
+  .faq-item h4 .q{font-family:'Roboto Mono',monospace;color:var(--signal-dark);}
+  .faq-item p{color:var(--ink-soft);font-size:0.96rem;padding-left:28px;}
 
-  /* ---------- CTA FINAL ---------- */
+  /* FINAL CTA */
   .final-cta{
     background:var(--ink);color:var(--paper);
-    padding:96px 0;text-align:center;
+    padding:90px 0;text-align:center;
   }
-  .final-cta h2{color:var(--paper);font-size:clamp(2rem,4vw,2.8rem);margin-bottom:20px;}
-  .final-cta p{color:#C9C3B3;max-width:520px;margin:0 auto 36px;font-size:1.08rem;}
-  .final-cta .btn-primary{padding:18px 34px;font-size:1.02rem;}
+  .final-cta h2{color:var(--paper);font-size:clamp(2rem,4vw,2.8rem);margin-bottom:18px;}
+  .final-cta p{color:#D5D0C5;max-width:560px;margin:0 auto 36px;font-size:1.1rem;}
 
-  /* ---------- FOOTER ---------- */
-  footer{padding:48px 0 36px;border-top:1px solid var(--line);}
-  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+  /* FOOTER */
+  footer{padding:40px 0;border-top:1px solid var(--line);background:var(--paper-dim);}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
   .foot-brand{font-family:'Zilla Slab',serif;font-weight:700;font-size:1.1rem;}
-  .foot-meta{font-size:0.82rem;color:var(--ink-soft);}
-  .foot-links{display:flex;gap:22px;font-size:0.85rem;color:var(--ink-soft);}
+  .foot-meta{font-size:0.85rem;color:var(--ink-soft);}
 
-  /* ---------- RESPONSIVE ---------- */
-  @media(max-width:900px){
+  /* RESPONSIVE */
+  @media(max-width:960px){
     .hero .wrap{grid-template-columns:1fr;}
     .problem-grid{grid-template-columns:1fr;}
-    .offer-tier{grid-template-columns:1fr;text-align:left;gap:14px;}
+    .offer-tier{grid-template-columns:1fr;text-align:left;gap:16px;}
     .tier-price{text-align:left;}
-    .process{grid-template-columns:1fr 1fr;gap:32px 20px;}
-    .process::before{display:none;}
-    .cred{grid-template-columns:1fr;}
+    .process{grid-template-columns:1fr 1fr;}
     .pricing-grid{grid-template-columns:1fr;}
-    .price-card{border-right:none;border-bottom:1px solid var(--line);}
-    .nav-links{display:none;}
-    .burger{display:block;}
+    .price-card.featured{transform:none;}
   }
   @media(max-width:560px){
     .process{grid-template-columns:1fr;}
-    .hero-trust{gap:20px;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{transition:none!important;}
+    .hero-ctas{flex-direction:column;}
+    .btn{width:100%;}
   }
 </style>
 </head>
 <body>
 
+<!-- NAVIGATION -->
 <nav class="nav">
   <div class="wrap">
-    <a href="#top" class="brand"><span class="mark">CD</span>Core Dynamics</a>
+    <a href="#top" class="brand">
+      <span class="mark">CD</span>
+      Core Dynamics
+    </a>
     <div class="nav-links">
-      <a href="#constat">Le constat</a>
-      <a href="#offre">L'offre</a>
-      <a href="#parcours">Qui je suis</a>
+      <a href="#pourquoi">Pourquoi un site ?</a>
+      <a href="#offres">Les Offres</a>
+      <a href="#methode">La Méthode</a>
       <a href="#tarifs">Tarifs</a>
-      <a href="#contact" class="nav-cta">Prendre RDV</a>
+      <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20d'aperçu%203D%20gratuit" class="nav-cta">Aperçu 3D Gratuit</a>
     </div>
-    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
+<!-- HERO SECTION -->
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot"></span>Artisans, commerçants — France entière</span>
-      <h1>Vos clients vous trouvent sur Google.<br>Encore faut-il qu'il y ait <em>quelque chose à trouver</em>.</h1>
-      <p class="lead">Core Dynamics construit le site de votre entreprise et remet de l'ordre dans votre activité — par quelqu'un qui a dirigé des restaurants et des équipes, pas par une agence qui ne connaît que le web.</p>
+      <span class="eyebrow"><span class="dot"></span>Maçons, Plombiers, Couvreurs, Électriciens, Chauffagistes</span>
+      <h1>Vos chantiers méritent plus qu'une simple carte de visite. <em>Marquez les esprits en 3D.</em></h1>
+      <p class="lead">Core Dynamics conçoit des sites web immersifs avec animations 3D interactives pour les artisans du bâtiment. Décrochez des chantiers plus importants en inspirant une confiance haut de gamme dès le premier coup d'œil.</p>
+      
       <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">Recevoir mon aperçu gratuit</a>
-        <a href="#offre" class="btn btn-ghost">Voir comment ça marche</a>
+        <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20d'aperçu%203D%20gratuit" class="btn btn-primary">Recevoir mon aperçu 3D gratuit</a>
+        <a href="#offres" class="btn btn-ghost">Voir les démonstrations</a>
       </div>
+
       <div class="hero-trust">
-        <div><strong>Plusieurs activités</strong>lancées et exploitées</div>
-        <div><strong>72h</strong>pour un premier aperçu de votre site</div>
-        <div><strong>0€</strong>tant que vous n'avez rien vu</div>
+        <div><strong>72 heures</strong>pour recevoir votre maquette 3D</div>
+        <div><strong>0 € engagé</strong>tant que vous n'avez pas validé</div>
+        <div><strong>100% autonome</strong>devis direct sur votre téléphone</div>
       </div>
     </div>
 
-    <div class="constat">
-      <div class="constat-head">
-        <span>Fiche de constat</span>
-        <span>N° 0421-GC</span>
+    <!-- CARTE SIMULATION ARTISAN -->
+    <div class="preview-card">
+      <div class="preview-head">
+        <span>PROTOTYPE VISUEL</span>
+        <span class="badge">Aperçu 3D</span>
       </div>
-      <div class="constat-body">
-        <div class="constat-row">
-          <span class="label">Avis Google</span>
-          <span class="val ok">47 avis · 4.6★</span>
+      <div class="preview-body">
+        <div class="preview-stat">
+          <span class="label">Avis Google Msn</span>
+          <span class="val ok">4.9 ★ (38 avis)</span>
         </div>
-        <div class="constat-row">
-          <span class="label">Site internet</span>
-          <span class="val bad">Aucun</span>
+        <div class="preview-stat">
+          <span class="label">Visibilité concurrente</span>
+          <span class="val bad">Site classique plat</span>
         </div>
-        <div class="constat-row">
-          <span class="label">Visible sur "artisan + ville"</span>
-          <span class="val bad">Non</span>
+        <div class="preview-stat">
+          <span class="label">Votre future vitrine</span>
+          <span class="val ok">Animation 3D au scroll</span>
         </div>
-        <div class="constat-row">
-          <span class="label">Devis en ligne possible</span>
-          <span class="val bad">Non</span>
-        </div>
-        <div class="constat-row">
-          <span class="label">Concurrent le plus proche</span>
-          <span class="val ok">Site actif</span>
+        <div class="preview-stat">
+          <span class="label">Demande de devis direct</span>
+          <span class="val ok">Inclus par SMS / Mail</span>
         </div>
       </div>
-      <div class="constat-foot">« Vous avez la réputation. Il manque la vitrine. »</div>
+      <div class="preview-foot">
+        « Un site d'exception permet d'imposer son niveau de prix face à la concurrence. »
+      </div>
     </div>
   </div>
 </header>
 
-<section id="constat">
+<!-- SECTION LE CONSTAT -->
+<section id="pourquoi">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Le problème, concrètement</span>
-      <h2>Ce que ça coûte de ne pas avoir de site</h2>
-      <p>Pas de discours marketing. Voici ce qui se passe réellement, chaque semaine, pour un artisan sans présence en ligne.</p>
+      <span class="kicker">Le constat du marché</span>
+      <h2>Pourquoi les sites d'artisans classiques ne fonctionnent plus</h2>
+      <p>Aujourd'hui, un prospect compare 3 entreprises avant de signer un devis. Voici ce qui fait pencher la balance.</p>
     </div>
+
     <div class="problem-grid">
       <div class="problem-card">
         <span class="num mono">01</span>
-        <h3>Le client compare avant d'appeler</h3>
-        <p>Il tape "plombier + votre ville", voit trois concurrents avec un site et vous avec juste une fiche Google. Il clique sur eux.</p>
+        <h3>L'image de marque fait le prix</h3>
+        <p>Un site amateur ou une simple page Facebook renvoie une image de "petit bricoleur". Un site 3D structuré rassure immédiatement sur la solidité de votre entreprise.</p>
       </div>
       <div class="problem-card">
         <span class="num mono">02</span>
-        <h3>Vos avis ne servent à personne</h3>
-        <p>47 avis positifs, c'est un capital. Sans site pour les mettre en avant, ils restent invisibles pour qui ne connaît pas déjà votre nom.</p>
+        <h3>La preuve technique par le visuel</h3>
+        <p>Montrez l'intérieur d'un mur porteur avec IPN, la structure d'une toiture ou l'écorché d'une pompe à chaleur au fur et à mesure que le client fait défiler la page.</p>
       </div>
       <div class="problem-card">
         <span class="num mono">03</span>
-        <h3>Vous gérez tout au téléphone</h3>
-        <p>Demandes de devis, questions sur vos horaires, votre zone d'intervention — tout ça vous prend du temps que vous ne facturez pas.</p>
+        <h3>Des demandes de devis qualifiées</h3>
+        <p>Fini les appels inutiles pendant que vous êtes sur le chantier. Vos clients remplissent un formulaire clair avec photos et détails de leur projet.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-alt" id="offre">
+<!-- SECTION LES OFFRES -->
+<section class="section-alt" id="offres">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Comment on avance ensemble</span>
-      <h2>Une offre en trois temps, sans engagement forcé</h2>
-      <p>Vous voyez le travail avant de payer quoi que ce soit. Ensuite, on avance seulement si ça vous sert vraiment.</p>
+      <span class="kicker">Un accompagnement progressif</span>
+      <h2>Découvrez votre futur site sans aucun risque</h2>
+      <p>Nous construisons d'abord le prototype. Vous ne payez que si le résultat vous convainc totalement.</p>
     </div>
+
     <div class="offer-stack">
+      <!-- Étape 1 -->
       <div class="offer-tier">
         <div class="tier-label">
-          <span class="tier-num mono">Étape 1</span>
+          <span class="tier-num mono">Étape 01</span>
           <span class="tier-tag">Offert</span>
         </div>
         <div>
-          <h3>L'aperçu — une page qui vous présente</h3>
-          <p>Je construis une première page simple à partir de ce qui existe déjà sur vous (fiche Google, avis, activité). Vous la recevez, vous la regardez, vous décidez si ça vaut le coup d'aller plus loin.</p>
+          <h3>L'Aperçu 3D sur-mesure</h3>
+          <p>Nous modélisons une première page interactive basée sur votre activité, votre ville et vos photos de chantiers. Vous la testez directement sur votre smartphone sous 72h.</p>
         </div>
         <div class="tier-price">
           <div class="amount mono">0 €</div>
-          <div class="note">Sans obligation</div>
+          <div class="note">Sans engagement</div>
         </div>
       </div>
 
+      <!-- Étape 2 -->
       <div class="offer-tier highlight">
         <div class="tier-label">
-          <span class="tier-num mono">Étape 2</span>
-          <span class="tier-tag">Le plus demandé</span>
+          <span class="tier-num mono">Étape 02</span>
+          <span class="tier-tag">Le plus choisi</span>
         </div>
         <div>
-          <h3>Le site — trois pages qui travaillent pour vous</h3>
-          <p>Page d'accueil qui présente votre métier, page contact avec votre zone d'intervention, page devis pour recevoir des demandes directement. Livré, testé sur mobile, prêt à être partagé.</p>
+          <h3>Le Pack Visibilité 3D — Clé en main</h3>
+          <p>Une vitrine complète comprenant l'animation 3D interactive au scroll, l'intégration de vos avis Google, votre zone d'intervention et le formulaire de devis automatisé.</p>
         </div>
         <div class="tier-price">
-          <div class="amount mono">À partir de 490€</div>
-          <div class="note">Discuté ensemble en RDV</div>
+          <div class="amount mono">290 € HT</div>
+          <div class="note">+ 49 € HT / mois tout inclus</div>
         </div>
       </div>
 
+      <!-- Étape 3 -->
       <div class="offer-tier">
         <div class="tier-label">
-          <span class="tier-num mono">Étape 3</span>
-          <span class="tier-tag">Pour aller plus loin</span>
+          <span class="tier-num mono">Étape 03</span>
+          <span class="tier-tag">Achat Direct</span>
         </div>
         <div>
-          <h3>L'accompagnement — votre activité, pas que votre site</h3>
-          <p>Un regard extérieur sur vos marges, votre organisation, votre façon de fixer vos prix ou de gérer votre équipe. L'expérience de quelqu'un qui a dirigé, pas d'un consultant théorique.</p>
+          <h3>Le Pack Vitrine Signature</h3>
+          <p>Pour les entreprises établies : multi-pages, plusieurs séquences d'animations 3D (ex: Avant/Après rénovation + vue éclatée), galerie travaux HD et SEO local poussé.</p>
         </div>
         <div class="tier-price">
-          <div class="amount mono">À partir de 350€ (Pack Stratégie Audit + 2h conseil)</div>
-          <div class="note">Après le site, si utile</div>
+          <div class="amount mono">1 190 € HT</div>
+          <div class="note">+ 29 € HT / mois de maintenance</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<!-- SECTION METHODE -->
+<section id="methode">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">La méthode</span>
-      <h2>Ce qui se passe concrètement, dans l'ordre</h2>
+      <span class="kicker">Processus rapide</span>
+      <h2>Comment nous travaillons ensemble</h2>
     </div>
+
     <div class="process">
       <div class="process-step">
         <div class="step-mark mono">1</div>
-        <h4>Je repère votre activité</h4>
-        <p>Métier, ville, avis existants — je regarde ce qui existe déjà avant de vous contacter.</p>
+        <h4>Analyse du Métier</h4>
+        <p>Nous étudions votre secteur (Maçonnerie, Électricité, Plomberie, etc.) et vos points forts locaux.</p>
       </div>
       <div class="process-step">
         <div class="step-mark mono">2</div>
-        <h4>Vous recevez un aperçu</h4>
-        <p>Une page construite pour vous, sous 72h, sans rien avoir demandé de plus qu'un accord de principe.</p>
+        <h4>Création 3D (72h)</h4>
+        <p>Génération de la séquence visuelle et assemblage de la première page sur-mesure.</p>
       </div>
       <div class="process-step">
         <div class="step-mark mono">3</div>
-        <h4>On en discute 20 minutes</h4>
-        <p>Par téléphone ou en direct. Vous me dites ce qui manque, ce qui vous ressemble ou pas.</p>
+        <h4>Démo sur Mobile</h4>
+        <p>Vous recevez le lien sur votre téléphone, vous testez l'animation et nous ajustons les détails.</p>
       </div>
       <div class="process-step">
         <div class="step-mark mono">4</div>
-        <h4>Le site part en ligne</h4>
-        <p>Trois pages, votre nom de domaine, et une formation rapide pour que vous soyez autonome dessus.</p>
+        <h4>Lancement</h4>
+        <p>Mise en ligne sous votre propre nom de domaine. Le site commence à travailler pour vous 24h/24.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="tarifs">
+<!-- SECTION TARIFS -->
+<section class="section-alt" id="tarifs">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Tarifs</span>
-      <h2>Des prix clairs, adaptés à une activité de province</h2>
-      <p>Pas de forfait à rallonge. Vous savez ce que vous payez et pourquoi.</p>
+      <span class="kicker">Grille tarifaire</span>
+      <h2>Une rentabilité immédiate pour votre entreprise</h2>
+      <p>Un seul petit chantier supplémentaire dans l'année rembourse la totalité de votre site.</p>
     </div>
+
     <div class="pricing-grid">
+      <!-- CARTE 1 -->
       <div class="price-card">
         <span class="price-badge mono">Découverte</span>
-        <h3>L'aperçu</h3>
-        <p class="desc">Pour voir ce que ça donne, sans rien engager.</p>
-        <div class="price-num">Offert</div>
-        <div class="price-sub mono">Livré sous 72h</div>
+        <h3>L'Aperçu 3D</h3>
+        <p class="desc">Pour tester le rendu visuel de votre entreprise sans dépenser un centime.</p>
+        <div class="price-num">0 €</div>
+        <div class="price-sub mono">Livré en 72 heures</div>
         <ul class="featlist">
-          <li>Une page basée sur votre activité existante</li>
-          <li>Vos avis Google mis en valeur</li>
-          <li>Lien à partager, sans obligation</li>
+          <li>1 Animation 3D de démonstration</li>
+          <li>Intégration de votre nom & ville</li>
+          <li>Lien de test privé sur smartphone</li>
+          <li>Aucune carte bancaire requise</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost">Je le veux</a>
+        <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20d'aperçu%203D%20gratuit" class="btn btn-ghost">Demander l'aperçu</a>
       </div>
-      <div class="price-card mid">
-        <span class="price-badge mono">Le plus choisi</span>
-        <h3>Le site 3 pages</h3>
-        <p class="desc">Accueil, contact, demande de devis. Votre outil de travail au quotidien.</p>
-        <div class="price-num">Sur devis</div>
-        <div class="price-sub mono">Réponse en RDV, sous 48h</div>
+
+      <!-- CARTE 2 -->
+      <div class="price-card featured">
+        <span class="price-badge mono">Populaire</span>
+        <h3>Pack Essentiel</h3>
+        <p class="desc">La formule abonnement clé en main. Zéro trésorerie à sortir au départ.</p>
+        <div class="price-num">290 € <span style="font-size:1rem;font-weight:normal;">HT</span></div>
+        <div class="price-sub mono">+ 49 € HT / mois (engagement 12 mois)</div>
         <ul class="featlist">
-          <li>Page d'accueil pensée pour votre métier</li>
-          <li>Page contact avec zone d'intervention</li>
-          <li>Formulaire de devis ou de collaboration</li>
-          <li>Nom de domaine et mise en ligne inclus</li>
-          <li>Hébergement et petites modifications, en option mensuelle</li>
+          <li>Site 1-Page avec Animation 3D au scroll</li>
+          <li>Nom de domaine & Hébergement sécurisé</li>
+          <li>Formulaire de devis direct par e-mail/SMS</li>
+          <li>Optimisation de la Fiche Google My Business</li>
+          <li>Modifications de textes & photos incluses</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Demander mon devis</a>
+        <a href="mailto:coredynamics.d@gmail.com?subject=Réservation%20Pack%20Essentiel" class="btn btn-primary">Lancer mon site</a>
       </div>
+
+      <!-- CARTE 3 -->
       <div class="price-card">
-        <span class="price-badge mono">Aller plus loin</span>
-        <h3>Accompagnement stratégie</h3>
-        <p class="desc">Un regard de patron sur votre organisation, vos marges, votre développement.</p>
-        <div class="price-num">Sur devis</div>
-        <div class="price-sub mono">Discuté selon vos besoins</div>
+        <span class="price-badge mono">Achat Unique</span>
+        <h3>Pack Signature</h3>
+        <p class="desc">Pour les entreprises souhaitant investir directement dans leur patrimoine web.</p>
+        <div class="price-num">1 190 € <span style="font-size:1rem;font-weight:normal;">HT</span></div>
+        <div class="price-sub mono">+ 29 € HT / mois (hébergement & maintenance)</div>
         <ul class="featlist">
-          <li>Audit de l'organisation actuelle</li>
-          <li>Points réguliers, à la fréquence utile pour vous</li>
-          <li>Conseils issus d'une expérience de direction réelle</li>
+          <li>Site Vitrine complet multi-sections</li>
+          <li>2 Séquences d'animations 3D distinctes</li>
+          <li>Galerie Réalisations Avant / Après HD</li>
+          <li>Avis Google synchronisés en direct</li>
+          <li>Rédaction des contenus optimisés SEO</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost">En discuter</a>
+        <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20Devis%20Pack%20Signature" class="btn btn-ghost">Demander un devis</a>
       </div>
     </div>
-    <p class="price-note">Les montants du site et de l'accompagnement dépendent de votre métier et de vos besoins réels — ils se décident ensemble, pas sur un tarif générique en ligne.</p>
   </div>
 </section>
 
-<section class="section-alt">
+<!-- SECTION FAQ -->
+<section>
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Questions courantes</span>
-      <h2>Ce qu'on me demande le plus souvent</h2>
+      <span class="kicker">Questions récurrentes</span>
+      <h2>Tout ce que vous devez savoir</h2>
     </div>
+
     <div class="faq-list">
       <div class="faq-item">
-        <h4><span class="q-mark mono">Q.</span>Pourquoi l'aperçu est gratuit ?</h4>
-        <p>Parce que je préfère vous montrer plutôt que vous convaincre. Si l'aperçu ne vous parle pas, vous ne me devez rien et on en reste là.</p>
+        <h4><span class="q mono">Q.</span>Est-ce que je dois m'y connaître en informatique ?</h4>
+        <p>Absolument pas. Nous nous occupons de l'intégralité du travail technique (hébergement, nom de domaine, code 3D). Vous n'avez qu'à valider le rendu final sur votre téléphone.</p>
       </div>
       <div class="faq-item">
-        <h4><span class="q-mark mono">Q.</span>Je n'y connais rien en informatique, ça pose problème ?</h4>
-        <p>Non, c'est même la majorité de mes clients. Le site est pensé pour que vous puissiez le regarder, le comprendre et faire de petites modifications vous-même si vous le souhaitez.</p>
+        <h4><span class="q mono">Q.</span>Comment fonctionne l'aperçu gratuit sous 72h ?</h4>
+        <p>Vous nous envoyez simplement le nom de votre entreprise et votre ville par e-mail. Nous concevons le prototype et vous envoyons un lien interactif. Si le résultat vous plaît, nous continuons. Sinon, vous ne devez rien.</p>
       </div>
       <div class="faq-item">
-        <h4><span class="q-mark mono">Q.</span>Combien de temps pour avoir mon site en ligne ?</h4>
-        <p>L'aperçu arrive sous 72h. Une fois le devis validé pour le site complet, comptez généralement une à deux semaines selon les allers-retours.</p>
+        <h4><span class="q mono">Q.</span>Comment les clients me contactent-ils sur le site ?</h4>
+        <p>Chaque demande de devis ou de rendez-vous remplie sur le site est immédiatement transmise sur votre adresse e-mail ou votre téléphone portable par notification.</p>
       </div>
       <div class="faq-item">
-        <h4><span class="q-mark mono">Q.</span>L'accompagnement stratégie est-il obligatoire ?</h4>
-        <p>Jamais. C'est une option proposée uniquement si, une fois le site en place, vous sentez qu'il y a autre chose à améliorer dans votre activité.</p>
+        <h4><span class="q mono">Q.</span>Le site fonctionne-t-il bien sur les téléphones ?</h4>
+        <p>Oui. Nos séquences d'animations 3D sont optimisées pour charger de façon fluide sur tous les smartphones (iOS et Android), même avec une connexion 4G de chantier.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="final-cta" id="contact">
+<!-- FINAL CTA -->
+<section class="final-cta">
   <div class="wrap">
-    <h2>Voyons ce que donnerait votre site</h2>
-    <p>Un échange de 20 minutes, un aperçu gratuit sous 72h, et vous décidez ensuite. Rien n'est engagé avant que vous ayez vu le résultat.</p>
-    <a href="mailto:contact@core-dynamics.fr" class="btn btn-primary">Écrire à Core Dynamics</a>
+    <h2>Prêt à démarquer votre entreprise de la concurrence ?</h2>
+    <p>Demandez votre aperçu 3D gratuit dès aujourd'hui. Réponse et maquette transmises sous 72h.</p>
+    <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20Aperçu%203D%20Gratuit" class="btn btn-primary" style="padding:18px 36px;font-size:1.05rem;">
+      Envoyer un e-mail à Core Dynamics
+    </a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap foot-grid">
     <div>
       <div class="foot-brand">Core Dynamics</div>
-      <div class="foot-meta">Accompagnement numérique et stratégie d'entreprise — artisans et commerçants, France entière.</div>
+      <div class="foot-meta">Création de sites web 3D & stratégie digitale pour les artisans et professionnels du bâtiment.</div>
     </div>
-    <div class="foot-links">
-      <a href="mailto:contact@core-dynamics.fr">contact@core-dynamics.fr</a>
-      <a href="#offre">L'offre</a>
-      <a href="#tarifs">Tarifs</a>
+    <div class="foot-meta">
+      Contact : <a href="mailto:coredynamics.d@gmail.com" style="text-decoration:underline;color:var(--ink);">coredynamics.d@gmail.com</a>
     </div>
   </div>
 </footer>
