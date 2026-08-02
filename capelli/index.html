@@ -320,25 +320,32 @@
 
   // 3. Fonction de rendu Canvas (Dessin centré en ratio 16:9 Cover)
   function render() {
-    const img = images[sequence.frame];
-    if (!img || !img.complete) return;
+  const img = images[sequence.frame];
+  if (!img || !img.complete) return;
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Ratios d'aspect pour simuler 'object-fit: cover' en 16:9
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    const ratio = Math.max(hRatio, vRatio);
+  const hRatio = canvas.width / img.width;
+  const vRatio = canvas.height / img.height;
+  
+  // DÉZOOM MOBILE : Si l'écran est vertical (mobile), on adapte le ratio pour ne pas sur-zoomer
+  const isPortrait = canvas.height > canvas.width;
+  
+  // Sur mobile, on applique un facteur de dézoom (ex: 85% du contain) pour voir toute l'image proprement
+  const ratio = isPortrait 
+    ? Math.min(hRatio, vRatio) * 0.95  // Dézoome sur smartphone (pas de rognage/pixellisation)
+    : Math.max(hRatio, vRatio);        // Mode immersif sur ordinateur
 
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;
+  const centerShift_x = (canvas.width - img.width * ratio) / 2;
+  const centerShift_y = (canvas.height - img.height * ratio) / 2;
 
-    context.drawImage(
-      img, 
-      0, 0, img.width, img.height,
-      centerShift_x, centerShift_y, img.width * ratio, img.height * ratio
-    );
-  }
+  context.drawImage(
+    img, 
+    0, 0, img.width, img.height,
+    centerShift_x, centerShift_y, img.width * ratio, img.height * ratio
+  );
+}
+
 
   // 4. Synchronisation GSAP ScrollTrigger
   function initScrollAnimation() {
