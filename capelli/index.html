@@ -289,10 +289,20 @@
 
   // 1. Redimensionnement dynamique du Canvas (Cover Mode 16:9)
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    render();
-  }
+  // Prise en compte du Device Pixel Ratio (DPR) de l'écran (Retina / 4K / Mobile)
+  // On limite à 2x pour garantir un compromis parfait entre netteté et performance
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  
+  // Résolution interne réelle du Canvas (multipliée par le DPR)
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+  
+  // Dimensions d'affichage CSS retenues à 100% de la fenêtre
+  canvas.style.width = `${window.innerWidth}px`;
+  canvas.style.height = `${window.innerHeight}px`;
+  
+  render();
+}
   window.addEventListener('resize', resizeCanvas);
 
   // 2. Préchargement des 240 images
@@ -320,25 +330,34 @@
 
   // 3. Fonction de rendu Canvas (Dessin centré en ratio 16:9 Cover)
   function render() {
-    const img = images[sequence.frame];
-    if (!img || !img.complete) return;
+  const img = images[sequence.frame];
+  if (!img || !img.complete) return;
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Ratios d'aspect pour simuler 'object-fit: cover' en 16:9
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    const ratio = Math.max(hRatio, vRatio);
+  // Activation de l'interpolation d'image haute qualité
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = "high";
 
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;
+  const imgRatio = img.width / img.height;
+  const canvasRatio = canvas.width / canvas.height;
 
-    context.drawImage(
-      img, 
-      0, 0, img.width, img.height,
-      centerShift_x, centerShift_y, img.width * ratio, img.height * ratio
-    );
+  let renderWidth, renderHeight;
+
+  // Calcul du mode Cover adapté au Canvas HD
+  if (canvasRatio > imgRatio) {
+    renderWidth = canvas.width;
+    renderHeight = canvas.width / imgRatio;
+  } else {
+    renderHeight = canvas.height;
+    renderWidth = canvas.height * imgRatio;
   }
+
+  const x = (canvas.width - renderWidth) / 2;
+  const y = (canvas.height - renderHeight) / 2;
+
+  context.drawImage(img, x, y, renderWidth, renderHeight);
+}
 
   // 4. Synchronisation GSAP ScrollTrigger
   function initScrollAnimation() {
