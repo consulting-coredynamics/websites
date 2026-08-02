@@ -270,133 +270,159 @@
   &copy; 2026 Capelli Plomberie. Réalisé avec Core Dynamics. Tous droits réservés.
 </footer>
 
-<!-- SCRIPT CANVAS & ANIMATION -->
+<!-- SCRIPT MOTEUR DUAL-STREAM MOBILE / DESKTOP OPTIMISÉ -->
 <script>
-  gsap.registerPlugin(ScrollTrigger);
+  window.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  const frameCount = 240;
-  const baseUrl = "https://consulting-coredynamics.github.io/websites/capelli/public/";
-  
-  // Génère le nom de fichier zéro-pad (ex: ezgif-frame-001.jpg)
-  const currentFrame = index => `${baseUrl}ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
-
-  const canvas = document.getElementById("canvas-3d");
-  const context = canvas.getContext("2d");
-  
-  const sequence = { frame: 0 };
-  const images = [];
-  let loadedImagesCount = 0;
-
-  // 1. Redimensionnement dynamique du Canvas (Cover Mode 16:9)
-  function resizeCanvas() {
-  // Prise en compte du Device Pixel Ratio (DPR) de l'écran (Retina / 4K / Mobile)
-  // On limite à 2x pour garantir un compromis parfait entre netteté et performance
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  
-  // Résolution interne réelle du Canvas (multipliée par le DPR)
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  
-  // Dimensions d'affichage CSS retenues à 100% de la fenêtre
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
-  
-  render();
-}
-  window.addEventListener('resize', resizeCanvas);
-
-  // 2. Préchargement des 240 images
-  for (let i = 0; i < frameCount; i++) {
-    const img = new Image();
-    img.src = currentFrame(i);
-    img.onload = () => {
-      loadedImagesCount++;
-      const percent = Math.round((loadedImagesCount / frameCount) * 100);
-      document.getElementById('progress-fill').style.width = `${percent}%`;
-      document.getElementById('loader-text').innerText = `Chargement des assets 3D... ${percent}%`;
-      
-      if (loadedImagesCount === frameCount) {
-        // Fin du chargement
-        setTimeout(() => {
-          const loader = document.getElementById('loader');
-          loader.style.opacity = '0';
-          loader.style.visibility = 'hidden';
-          initScrollAnimation();
-        }, 300);
-      }
+    const frameCount = 240;
+    
+    // DÉTECTION STRICTE MOBILE (UserAgent + Largeur écran)
+    const checkIsMobile = () => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
     };
-    images.push(img);
-  }
 
-  // 3. Fonction de rendu Canvas (Dessin centré en ratio 16:9 Cover)
-  function render() {
-  const img = images[sequence.frame];
-  if (!img || !img.complete) return;
+    const isMobile = checkIsMobile();
+    
+    // ROUTING DU DOSSIER D'IMAGES (Vérifiez la casse exacte sur GitHub)
+    const baseUrl = isMobile 
+      ? "https://consulting-coredynamics.github.io/websites/capelli/public/mobile/" 
+      : "https://consulting-coredynamics.github.io/websites/capelli/public/";
 
-  context.clearRect(0, 0, canvas.width, canvas.height);
+    // LOG DE DÉBOGAGE (Ouvrez F12 pour vérifier)
+    console.log("📱 Écran détecté :", isMobile ? "MOBILE" : "DESKTOP");
+    console.log("📁 Chargement depuis :", baseUrl);
 
-  // Activation de l'interpolation d'image haute qualité
-  context.imageSmoothingEnabled = true;
-  context.imageSmoothingQuality = "high";
+    const currentFrame = index => `${baseUrl}ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
 
-  const imgRatio = img.width / img.height;
-  const canvasRatio = canvas.width / canvas.height;
+    const canvas = document.getElementById("canvas-3d");
+    const context = canvas.getContext("2d");
+    
+    const sequence = { frame: 0 };
+    const images = [];
+    let loadedImagesCount = 0;
+    let isFinished = false;
 
-  let renderWidth, renderHeight;
-
-  // Calcul du mode Cover adapté au Canvas HD
-  if (canvasRatio > imgRatio) {
-    renderWidth = canvas.width;
-    renderHeight = canvas.width / imgRatio;
-  } else {
-    renderHeight = canvas.height;
-    renderWidth = canvas.height * imgRatio;
-  }
-
-  const x = (canvas.width - renderWidth) / 2;
-  const y = (canvas.height - renderHeight) / 2;
-
-  context.drawImage(img, x, y, renderWidth, renderHeight);
-}
-
-  // 4. Synchronisation GSAP ScrollTrigger
-  function initScrollAnimation() {
-    resizeCanvas();
-
-    // GSAP Scrub de la séquence d'images
-    gsap.to(sequence, {
-      frame: frameCount - 1,
-      snap: "frame",
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#scroll-trigger-area",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.4, // Fluidité du défilement
-        onUpdate: () => {
-          render();
-          updateTextCards(sequence.frame);
-        }
+    // REDIMENSIONNEMENT HD RETINA
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      
+      render();
+    }
+    
+    // Recharge la page si on bascule du mode mobile au mode PC sur ordinateur
+    let currentMobileState = isMobile;
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      if (checkIsMobile() !== currentMobileState) {
+        location.reload(); // Recharge la bonne séquence d'images si l'écran change de mode
       }
     });
-  }
 
-  // 5. Gestion de l'apparition des cartes de texte selon le frame actuel
-  function updateTextCards(frame) {
-    const card1 = document.getElementById('card-1');
-    const card2 = document.getElementById('card-2');
-    const card3 = document.getElementById('card-3');
-    const card4 = document.getElementById('card-4');
+    // RENDU CANVAS
+    function render() {
+      const img = images[sequence.frame];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    // Étape 1 : Frames 0 -> 60
-    card1.classList.toggle('active', frame >= 0 && frame < 60);
-    // Étape 2 : Frames 60 -> 120
-    card2.classList.toggle('active', frame >= 60 && frame < 120);
-    // Étape 3 : Frames 120 -> 180
-    card3.classList.toggle('active', frame >= 120 && frame < 180);
-    // Étape 4 : Frames 180 -> 240
-    card4.classList.toggle('active', frame >= 180);
-  }
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+
+      const imgRatio = img.width / img.height;
+      const canvasRatio = canvas.width / canvas.height;
+
+      let renderWidth, renderHeight;
+
+      if (canvasRatio > imgRatio) {
+        renderWidth = canvas.width;
+        renderHeight = canvas.width / imgRatio;
+      } else {
+        renderHeight = canvas.height;
+        renderWidth = canvas.height * imgRatio;
+      }
+
+      const x = (canvas.width - renderWidth) / 2;
+      const y = (canvas.height - renderHeight) / 2;
+
+      context.drawImage(img, x, y, renderWidth, renderHeight);
+    }
+
+    function handleImageLoad() {
+      if (isFinished) return;
+      loadedImagesCount++;
+      const percent = Math.min(100, Math.round((loadedImagesCount / frameCount) * 100));
+      
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('loader-text').innerText = `Chargement 3D ${isMobile ? 'Mobile' : 'Desktop'}... ${percent}%`;
+
+      if (loadedImagesCount >= frameCount) {
+        isFinished = true;
+        dismissLoader();
+      }
+    }
+
+    function dismissLoader() {
+      const loader = document.getElementById('loader');
+      loader.classList.add('is-hidden');
+      initScrollAnimation();
+    }
+
+    // Chargement des images
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.onload = handleImageLoad;
+      img.onerror = () => {
+        console.warn(`⚠️ Erreur d'image sur : ${currentFrame(i)}`);
+        handleImageLoad();
+      };
+      img.src = currentFrame(i);
+      images.push(img);
+    }
+
+    setTimeout(() => {
+      if (!isFinished) {
+        isFinished = true;
+        dismissLoader();
+      }
+    }, 10000);
+
+    function initScrollAnimation() {
+      resizeCanvas();
+
+      gsap.to(sequence, {
+        frame: frameCount - 1,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#scroll-trigger-area",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.3,
+          onUpdate: () => {
+            render();
+            updateTextCards(sequence.frame);
+          }
+        }
+      });
+      
+      ScrollTrigger.refresh();
+    }
+
+    function updateTextCards(frame) {
+      document.getElementById('card-1').classList.toggle('active', frame >= 0 && frame < 60);
+      document.getElementById('card-2').classList.toggle('active', frame >= 60 && frame < 120);
+      document.getElementById('card-3').classList.toggle('active', frame >= 120 && frame < 180);
+      document.getElementById('card-4').classList.toggle('active', frame >= 180);
+    }
+  });
 </script>
+
 </body>
 </html>
