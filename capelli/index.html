@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capelli Plomberie — Expertise & Intervention Haute Précision</title>
+
+<!-- Fonts Google -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- GSAP & ScrollTrigger via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+  :root {
+    --bg-dark: #0D1418;
+    --card-bg: rgba(19, 29, 35, 0.75);
+    --border-light: rgba(216, 210, 194, 0.15);
+    --primary-cyan: #0284C7;
+    --accent-orange: #E8622C;
+    --text-main: #F9F7F2;
+    --text-muted: #94A3B8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'Roboto Mono', monospace; }
+  .serif { font-family: 'Zilla Slab', serif; }
+
+  /* ÉCRAN DE CHARGEMENT */
+  #loader {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--bg-dark);
+    z-index: 9999;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s;
+  }
+  .loader-brand {
+    font-family: 'Zilla Slab', serif;
+    font-size: 2rem; font-weight: 700;
+    margin-bottom: 24px; letter-spacing: -0.02em;
+  }
+  .loader-brand span { color: var(--accent-orange); }
+  .progress-bar-bg {
+    width: 280px; height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px; overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .progress-bar-fill {
+    width: 0%; height: 100%;
+    background: linear-gradient(90deg, var(--primary-cyan), var(--accent-orange));
+    transition: width 0.1s ease;
+  }
+  .loader-status { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* HEADER FIXED */
+  header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(13,20,24,0.9) 0%, rgba(13,20,24,0) 100%);
+    backdrop-filter: blur(4px);
+  }
+  .logo {
+    font-family: 'Zilla Slab', serif; font-weight: 700; font-size: 1.3rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo-mark {
+    width: 32px; height: 32px; background: var(--text-main);
+    color: var(--accent-orange); font-family: 'Roboto Mono', monospace;
+    display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+  }
+  .header-cta {
+    background: var(--accent-orange); color: #fff;
+    padding: 10px 20px; font-weight: 600; font-size: 0.85rem;
+    text-decoration: none; border-radius: 2px; transition: background 0.2s;
+  }
+  .header-cta:hover { background: #c74e1f; }
+
+  /* SECTION ANIMATION 3D SCROLL */
+  .animation-container {
+    position: relative;
+    height: 500vh; /* Contrôle la longueur du scroll de l'animation */
+  }
+  .sticky-wrapper {
+    position: sticky; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+  }
+  canvas#canvas-3d {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* OVERLAYS TEXTES INTERACTIFS */
+  .text-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 24px;
+  }
+  .step-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    backdrop-filter: blur(12px);
+    padding: 36px 40px; max-width: 540px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .step-card.active {
+    opacity: 1; transform: translateY(0);
+    pointer-events: auto;
+  }
+  .step-tag {
+    font-size: 0.75rem; color: var(--primary-cyan);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 8px; display: block;
+  }
+  .step-card h2 {
+    font-family: 'Zilla Slab', serif; font-size: 2rem;
+    margin-bottom: 12px; line-height: 1.15;
+  }
+  .step-card p {
+    color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;
+  }
+
+  /* SECTION CONTENU APRES CANVAS */
+  .section-content {
+    position: relative; z-index: 10;
+    background: var(--bg-dark);
+    padding: 100px 24px;
+    border-top: 1px solid var(--border-light);
+  }
+  .content-wrap { max-width: 1100px; margin: 0 auto; }
+  .grid-3 {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+  .feature-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-light);
+    padding: 32px; transition: border-color 0.3s;
+  }
+  .feature-box:hover { border-color: var(--primary-cyan); }
+  .feature-num { color: var(--accent-orange); font-size: 0.9rem; margin-bottom: 12px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border-light);
+    padding: 40px 24px; text-align: center;
+    color: var(--text-muted); font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 16px 20px; }
+    .step-card { padding: 24px; }
+    .step-card h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN DE CHARGEMENT -->
+<div id="loader">
+  <div class="loader-brand">Capelli <span>Plomberie</span></div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="loader-status mono" id="loader-text">Chargement de la séquence 3D... 0%</div>
+</div>
+
+<!-- HEADER / NAVIGATION -->
+<header>
+  <div class="logo">
+    <div class="logo-mark">CP</div>
+    Capelli Plomberie
+  </div>
+  <a href="#contact" class="header-cta">Devis Express 24/7</a>
+</header>
+
+<!-- CONTENEUR ANIMATION SCROLL (CANVAS STICKY) -->
+<div class="animation-container" id="scroll-trigger-area">
+  <div class="sticky-wrapper">
+    <canvas id="canvas-3d"></canvas>
+
+    <!-- ETAPE 1 (0% à 25%) -->
+    <div class="text-overlay">
+      <div class="step-card active" id="card-1">
+        <span class="step-tag mono">01 / Infaillible</span>
+        <h2>L'Artisanat de Précision & Haute Technologie</h2>
+        <p>Découvrez une vision transparente de vos installations sanitaires et réseaux de chauffage. Une conception pensée pour durer des décennies.</p>
+      </div>
+    </div>
+
+    <!-- ETAPE 2 (25% à 50%) -->
+    <div class="text-overlay">
+      <div class="step-card" id="card-2">
+        <span class="step-tag mono">02 / Diagnostic</span>
+        <h2>Ingénierie & Inspection Technique</h2>
+        <p>Nous détectons l'invisible : recherche de fuite non destructive, inspection vidéo des canalisations et optimisation thermique sur-mesure.</p>
+      </div>
+    </div>
+
+    <!-- ETAPE 3 (50% à 75%) -->
+    <div class="text-overlay">
+      <div class="step-card" id="card-3">
+        <span class="step-tag mono">03 / Réactivité</span>
+        <h2>Intervention Express 24h/24 & 7j/7</h2>
+        <p>Parce qu'une urgence n'attend pas, nos équipes interviennent chez vous avec un matériel de pointe prêt au déploiement immédiat.</p>
+      </div>
+    </div>
+
+    <!-- ETAPE 4 (75% à 100%) -->
+    <div class="text-overlay">
+      <div class="step-card" id="card-4">
+        <span class="step-tag mono">04 / Engagement</span>
+        <h2>Votre Prochain Chantier Clé en Main</h2>
+        <p>Rénovation complète de salle de bain, pompe à chaleur ou réseaux professionnels. Recevez un chiffrage précis sous 2 heures.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTENU SUIVANT -->
+<section class="section-content" id="contact">
+  <div class="content-wrap">
+    <span class="mono" style="color:var(--accent-orange); text-transform:uppercase;">Nos domaines d'expertise</span>
+    <h2 class="serif" style="font-size:2.4rem; margin-top:8px;">Un niveau d'exigence sans concession</h2>
+
+    <div class="grid-3">
+      <div class="feature-box">
+        <div class="feature-num mono">01.</div>
+        <h3 class="serif" style="margin-bottom:8px; font-size:1.3rem;">Dépannage Urgent</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Prise en charge prioritaire pour fuites d'eau majeures, engorgement de réseau et pannes de chaudière.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num mono">02.</div>
+        <h3 class="serif" style="margin-bottom:8px; font-size:1.3rem;">Salles de Bains PMR & Design</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Création complète sur-mesure avec intégration 3D avant travaux et finitions haut de gamme.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num mono">03.</div>
+        <h3 class="serif" style="margin-bottom:8px; font-size:1.3rem;">Pompes à Chaleur & Chauffage</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Remplacement et optimisation des systèmes de chauffage pour des économies d'énergie mesurables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Capelli Plomberie. Réalisé avec Core Dynamics. Tous droits réservés.
+</footer>
+
+<!-- SCRIPT CANVAS & ANIMATION -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const frameCount = 240;
+  const baseUrl = "https://consulting-coredynamics.github.io/websites/capelli/public/";
+  
+  // Génère le nom de fichier zéro-pad (ex: ezgif-frame-001.jpg)
+  const currentFrame = index => `${baseUrl}ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
+
+  const canvas = document.getElementById("canvas-3d");
+  const context = canvas.getContext("2d");
+  
+  const sequence = { frame: 0 };
+  const images = [];
+  let loadedImagesCount = 0;
+
+  // 1. Redimensionnement dynamique du Canvas (Cover Mode 16:9)
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    render();
+  }
+  window.addEventListener('resize', resizeCanvas);
+
+  // 2. Préchargement des 240 images
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+    img.onload = () => {
+      loadedImagesCount++;
+      const percent = Math.round((loadedImagesCount / frameCount) * 100);
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('loader-text').innerText = `Chargement des assets 3D... ${percent}%`;
+      
+      if (loadedImagesCount === frameCount) {
+        // Fin du chargement
+        setTimeout(() => {
+          const loader = document.getElementById('loader');
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          initScrollAnimation();
+        }, 300);
+      }
+    };
+    images.push(img);
+  }
+
+  // 3. Fonction de rendu Canvas (Dessin centré en ratio 16:9 Cover)
+  function render() {
+    const img = images[sequence.frame];
+    if (!img || !img.complete) return;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Ratios d'aspect pour simuler 'object-fit: cover' en 16:9
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    const ratio = Math.max(hRatio, vRatio);
+
+    const centerShift_x = (canvas.width - img.width * ratio) / 2;
+    const centerShift_y = (canvas.height - img.height * ratio) / 2;
+
+    context.drawImage(
+      img, 
+      0, 0, img.width, img.height,
+      centerShift_x, centerShift_y, img.width * ratio, img.height * ratio
+    );
+  }
+
+  // 4. Synchronisation GSAP ScrollTrigger
+  function initScrollAnimation() {
+    resizeCanvas();
+
+    // GSAP Scrub de la séquence d'images
+    gsap.to(sequence, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#scroll-trigger-area",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.4, // Fluidité du défilement
+        onUpdate: () => {
+          render();
+          updateTextCards(sequence.frame);
+        }
+      }
+    });
+  }
+
+  // 5. Gestion de l'apparition des cartes de texte selon le frame actuel
+  function updateTextCards(frame) {
+    const card1 = document.getElementById('card-1');
+    const card2 = document.getElementById('card-2');
+    const card3 = document.getElementById('card-3');
+    const card4 = document.getElementById('card-4');
+
+    // Étape 1 : Frames 0 -> 60
+    card1.classList.toggle('active', frame >= 0 && frame < 60);
+    // Étape 2 : Frames 60 -> 120
+    card2.classList.toggle('active', frame >= 60 && frame < 120);
+    // Étape 3 : Frames 120 -> 180
+    card3.classList.toggle('active', frame >= 120 && frame < 180);
+    // Étape 4 : Frames 180 -> 240
+    card4.classList.toggle('active', frame >= 180);
+  }
+</script>
+</body>
+</html>
