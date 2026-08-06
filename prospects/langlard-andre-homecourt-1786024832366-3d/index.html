@@ -1,37 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<script>
-  (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const prospectId = urlParams.get('id');
 
-    if (!prospectId) return;
-
-    // Ton URL publique sécurisée Ngrok :
-    const webhookUrl = 'https://overeater-hastiness-unbolted.ngrok-free.dev/webhook-test/demo-tracker';
-
-    const payload = JSON.stringify({
-      prospect_id: prospectId,
-      timestamp: new Date().toISOString(),
-      user_agent: navigator.userAgent
-    });
-
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(webhookUrl, payload);
-    } else {
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': 'true' // Évite la page d'avertissement Ngrok
-        },
-        body: payload,
-        keepalive: true
-      }).catch(function(e) {});
-    }
-  })();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Langlard André | Plombier Chauffagiste à Homécourt — Immersion 3D</title>
