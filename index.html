@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Core Dynamics — Studio Web 3D & Visibilité Haute Gamme pour Artisans & Commerçants</title>
+<title>Core Dynamics — Studio Web 3D & Visibilité Haut de Gamme pour Artisans & Commerçants</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; window.Cal = window.Cal || function () { let cal = window.Cal; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d = document; s = d.createElement("script"); s.async = true; s.src = A; d.head.appendChild(s); cal.loaded = true; } if (arg = arguments, arg[0] === "init") { let api = function () { p(api, arguments); }; let namespace = arg[1]; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], arg); return; } p(cal, arg); return; } p(cal, arg); }; })(window, "https://app.cal.com/embed/embed.js", "init");
   Cal("init", {origin:"https://cal.com"});
 
-  // Style personnalisé pour le widget Cal.com aux couleurs de Core Dynamics
+  // Style personnalisé pour le widget Cal.com
   Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#E8622C"}},"hideEventTypeDetails":false,"layout":"month_view"});
 </script>
 
@@ -37,14 +37,14 @@
     background:var(--paper);
     color:var(--ink);
     font-family:'Inter',sans-serif;
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,h4{
     font-family:'Zilla Slab',serif;
     font-weight:700;
     color:var(--ink);
-    line-height:1.1;
+    line-height:1.15;
     letter-spacing:-0.01em;
   }
   .mono{font-family:'Roboto Mono',monospace;}
@@ -53,7 +53,7 @@
   img,svg{display:block;max-width:100%;}
   :focus-visible{outline:3px solid var(--signal);outline-offset:3px;}
 
-  /* BARRE DE NAVIGATION GARANTIE SANS DEBORDEMENT */
+  /* BARRE DE NAVIGATION */
   .nav{
     position:sticky;top:0;z-index:1000;
     background:rgba(249,247,242,0.96);
@@ -61,12 +61,12 @@
     border-bottom:1px solid var(--line);
   }
   .nav .wrap{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-space-between;
     height:74px;gap:16px;
   }
   .brand{
     display:flex;align-items:center;gap:10px;
-    font-family:'Zilla Slab',serif;font-weight:700;font-size:1.2rem;
+    font-family:'Zilla Slab',serif;font-weight:700;font-size:1.25rem;
     flex-shrink:0;
   }
   .brand .mark{
@@ -80,13 +80,14 @@
     flex-shrink:0;
   }
   .nav-links{
-    display:flex;gap:20px;align-items:center;
+    display:flex;gap:22px;align-items:center;
   }
-  .nav-links a{font-size:0.88rem;font-weight:500;color:var(--ink-soft);transition:color .15s;white-space:nowrap;}
+  .nav-links a{font-size:0.9rem;font-weight:500;color:var(--ink-soft);transition:color .15s;white-space:nowrap;}
   .nav-links a:hover{color:var(--signal-dark);}
+  .nav-cta-group{display:flex;gap:10px;align-items:center;}
   .nav-cta{
     background:var(--signal);color:var(--white)!important;
-    padding:11px 20px;font-weight:600;font-size:0.86rem;
+    padding:11px 18px;font-weight:600;font-size:0.86rem;
     border-radius:2px;transition:all .15s ease;
     white-space:nowrap;flex-shrink:0;
     box-shadow:0 4px 12px rgba(232,98,44,0.25);
@@ -95,7 +96,7 @@
   .nav-cta:hover{background:var(--signal-dark);transform:translateY(-1px);}
 
   /* HERO */
-  .hero{padding:80px 0 64px;position:relative;}
+  .hero{padding:88px 0 64px;position:relative;}
   .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
@@ -105,7 +106,7 @@
     border:1px solid rgba(74,107,98,0.25);border-radius:2px;
   }
   .eyebrow .dot{width:7px;height:7px;background:var(--signal);border-radius:50%;}
-  .hero h1{font-size:clamp(2.1rem,3.8vw,3.3rem);margin-bottom:20px;}
+  .hero h1{font-size:clamp(2.2rem,3.8vw,3.4rem);margin-bottom:20px;}
   .hero h1 em{font-style:normal;color:var(--signal-dark);background:linear-gradient(180deg,transparent 70%,rgba(232,98,44,0.18) 70%);}
   .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:540px;margin-bottom:32px;}
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
@@ -116,10 +117,13 @@
   }
   .btn-primary{background:var(--signal);color:var(--white);}
   .btn-primary:hover{background:var(--signal-dark);transform:translateY(-1px);}
+  .btn-secondary{background:var(--moss);color:var(--white);}
+  .btn-secondary:hover{background:var(--moss-dark);transform:translateY(-1px);}
   .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
   .btn-ghost:hover{background:var(--ink);color:var(--paper);}
-  .hero-trust{display:flex;gap:28px;padding-top:20px;border-top:1px solid var(--line);}
-  .hero-trust div{font-size:0.82rem;color:var(--ink-soft);}
+  
+  .hero-trust{display:flex;gap:28px;padding-top:24px;border-top:1px solid var(--line);}
+  .hero-trust div{font-size:0.84rem;color:var(--ink-soft);}
   .hero-trust strong{display:block;font-family:'Zilla Slab',serif;font-size:1.35rem;color:var(--ink);}
 
   /* CARD PREVIEW HERO */
@@ -156,7 +160,7 @@
   }
 
   /* SECTIONS */
-  section{padding:84px 0;}
+  section{padding:88px 0;}
   .section-alt{background:var(--paper-dim);}
   .kicker{
     font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
@@ -170,14 +174,14 @@
   /* PROBLEM GRID */
   .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
   .problem-card{
-    background:var(--white);padding:30px 24px;
+    background:var(--white);padding:32px 26px;
     border:1px solid var(--line);box-shadow:var(--shadow);
   }
-  .problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.8rem;color:var(--signal-dark);margin-bottom:14px;display:block;}
-  .problem-card h3{font-size:1.15rem;margin-bottom:10px;}
-  .problem-card p{color:var(--ink-soft);font-size:0.92rem;line-height:1.55;}
+  .problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.85rem;color:var(--signal-dark);margin-bottom:14px;display:block;}
+  .problem-card h3{font-size:1.2rem;margin-bottom:12px;}
+  .problem-card p{color:var(--ink-soft);font-size:0.94rem;line-height:1.6;}
 
-  /* PRICING GRID HIGH TICKET */
+  /* PRICING GRID */
   .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
   .price-card{
     background:var(--white);padding:34px 26px;
@@ -205,32 +209,31 @@
   .saas-option-box{
     background:rgba(20,31,36,0.04);
     border-left:3px solid var(--moss);
-    padding:10px 12px;
-    margin-bottom:22px;
-    font-size:0.78rem;
+    padding:12px 14px;
+    margin-bottom:24px;
+    font-size:0.8rem;
     font-family:'Roboto Mono',monospace;
     color:var(--ink-soft);
   }
   .price-card.featured .saas-option-box{
-    background:rgba(232,98,44,0.12);
+    background:rgba(232,98,44,0.14);
     border-left-color:var(--signal);
     color:var(--paper);
   }
 
   .featlist{list-style:none;flex:1;margin-bottom:28px;}
   .featlist li{
-    font-size:0.86rem;padding:9px 0;border-bottom:1px dashed var(--line);
-    display:flex;gap:8px;
+    font-size:0.88rem;padding:10px 0;border-bottom:1px dashed var(--line);
+    display:flex;gap:8px;align-items:flex-start;
   }
   .featlist li::before{content:"✓";color:var(--signal-dark);font-weight:bold;}
   .price-card.featured .featlist li::before{color:var(--signal);}
 
-  /* SECTION RENDEZ-VOUS / CAL.COM INLINE */
+  /* RENDEZ-VOUS CAL.COM */
   .booking-section {
     background: var(--white);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    padding: 84px 0;
   }
   .booking-card {
     background: var(--paper-dim);
@@ -238,36 +241,83 @@
     border-radius: 4px;
     padding: 24px;
     margin-top: 32px;
-    min-height: 600px;
+    min-height: 580px;
+  }
+
+  /* SECTION CONTACT DIRECT */
+  .contact-section {background:var(--paper-dim);}
+  .contact-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .contact-info {
+    background:var(--ink);
+    color:var(--paper);
+    padding:40px 32px;
+    border:1px solid var(--ink);
+  }
+  .contact-info h3 {color:var(--paper);font-size:1.5rem;margin-bottom:16px;}
+  .contact-info p {color:#D5D0C5;margin-bottom:24px;font-size:0.95rem;}
+  .contact-details {list-style:none;margin-bottom:32px;}
+  .contact-details li {
+    display:flex;gap:12px;align-items:center;
+    padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.1);
+    font-size:0.92rem;
+  }
+  .contact-details li strong {color:var(--signal);}
+
+  .contact-form-card {
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:36px 30px;
+    box-shadow:var(--shadow);
+  }
+  .contact-form-card h3 {font-size:1.35rem;margin-bottom:8px;}
+  .contact-form-card p {color:var(--ink-soft);font-size:0.9rem;margin-bottom:24px;}
+  .form-group {margin-bottom:18px;}
+  .form-group label {display:block;font-size:0.82rem;font-weight:600;font-family:'Roboto Mono',monospace;margin-bottom:6px;color:var(--ink);}
+  .form-group input, .form-group textarea {
+    width:100%;padding:12px 14px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-family:'Inter',sans-serif;font-size:0.92rem;
+    color:var(--ink);
+    border-radius:2px;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline:none;border-color:var(--signal);background:var(--white);
   }
 
   /* FAQ */
-  .faq-list{max-width:820px;margin:0 auto;}
-  .faq-item{background:var(--white);border:1px solid var(--line);padding:24px;margin-bottom:14px;}
-  .faq-item h4{font-size:1.05rem;margin-bottom:8px;display:flex;gap:10px;align-items:baseline;}
+  .faq-list{max-width:840px;margin:0 auto;}
+  .faq-item{background:var(--white);border:1px solid var(--line);padding:26px;margin-bottom:16px;}
+  .faq-item h4{font-size:1.08rem;margin-bottom:10px;display:flex;gap:10px;align-items:baseline;}
   .faq-item h4 .q{font-family:'Roboto Mono',monospace;color:var(--signal-dark);}
-  .faq-item p{color:var(--ink-soft);font-size:0.94rem;padding-left:24px;}
+  .faq-item p{color:var(--ink-soft);font-size:0.95rem;padding-left:24px;line-height:1.6;}
 
   /* FINAL CTA */
   .final-cta{
     background:var(--ink);color:var(--paper);
-    padding:84px 0;text-align:center;
+    padding:88px 0;text-align:center;
   }
   .final-cta h2{color:var(--paper);font-size:clamp(1.9rem,3.8vw,2.6rem);margin-bottom:16px;}
-  .final-cta p{color:#D5D0C5;max-width:560px;margin:0 auto 32px;font-size:1.05rem;}
+  .final-cta p{color:#D5D0C5;max-width:580px;margin:0 auto 36px;font-size:1.05rem;}
   .final-cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
 
   /* FOOTER */
-  footer{padding:36px 0;border-top:1px solid var(--line);background:var(--paper-dim);}
+  footer{padding:40px 0;border-top:1px solid var(--line);background:var(--paper-dim);}
   .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-  .foot-brand{font-family:'Zilla Slab',serif;font-weight:700;font-size:1.1rem;}
-  .foot-meta{font-size:0.84rem;color:var(--ink-soft);}
+  .foot-brand{font-family:'Zilla Slab',serif;font-weight:700;font-size:1.15rem;}
+  .foot-meta{font-size:0.86rem;color:var(--ink-soft);}
 
   /* RESPONSIVE DESIGN */
   @media(max-width:960px){
     .hero .wrap{grid-template-columns:1fr;}
     .problem-grid{grid-template-columns:1fr;}
     .pricing-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
     .price-card.featured{transform:none;}
     .nav-links{display:none;}
   }
@@ -291,9 +341,12 @@
         <a href="#pourquoi">L'Impact 3D</a>
         <a href="#tarifs">Offres & Tarifs</a>
         <a href="#rendezvous">Prendre RDV</a>
+        <a href="#contact">Nous contacter</a>
         <a href="#faq">FAQ</a>
       </div>
-      <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="nav-cta">Aperçu 3D & RDV Gratuit</button>
+      <div class="nav-cta-group">
+        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="nav-cta">📅 RDV Démo</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -307,13 +360,13 @@
       <p class="lead">Core Dynamics conçoit des vitrines immersives 3D haut de gamme. Démarquez-vous définitivement de vos concurrents locaux, inspirez une confiance immédiate et signez des devis à forte valeur ajoutée.</p>
       
       <div class="hero-ctas">
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">📅 Demander mon prototype 3D & Réserver un RDV</button>
-        <a href="#tarifs" class="btn btn-ghost">Découvrir les tarifs</a>
+        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">📅 Réserver un créneau démo (15 min)</button>
+        <a href="#contact" class="btn btn-ghost">✉️ Poser une question / Message</a>
       </div>
 
       <div class="hero-trust">
-        <div><strong>72 heures</strong>pour recevoir votre maquette mobile</div>
-        <div><strong>0 € engagé</strong>tant que vous n'avez rien vu</div>
+        <div><strong>72 heures</strong>pour recevoir votre prototype</div>
+        <div><strong>0 € engagé</strong>tant que vous n'avez pas validé</div>
         <div><strong>Impact immédiat</strong>sur la signature de vos devis</div>
       </div>
     </div>
@@ -408,7 +461,7 @@
           <li>Intégration avis Google & carte</li>
           <li>Formulaire de contact e-mail</li>
         </ul>
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-ghost">Commander le Statique</button>
+        <a href="#contact" class="btn btn-ghost">Commander le Statique</a>
       </div>
 
       <!-- OFFRE 2 : PACK 3D (BEST-SELLER) -->
@@ -454,7 +507,7 @@
           <li>Galerie travaux & réalisations HD</li>
           <li>Mises à jour et accompagnement prioritaire</li>
         </ul>
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-ghost">Demander une étude</button>
+        <a href="#contact" class="btn btn-ghost">Demander une étude</a>
       </div>
     </div>
   </div>
@@ -464,9 +517,9 @@
 <section class="booking-section" id="rendezvous">
   <div class="wrap">
     <div class="section-head" style="margin-bottom:24px;">
-      <span class="kicker">Planification Instantanée</span>
+      <span class="kicker">Option 1 — Agenda Direct</span>
       <h2>Réservez une démonstration 3D privée (15 min)</h2>
-      <p>Sélectionnez directement le créneau de votre choix ci-dessous. Sans engagement, nous analyserons ensemble votre potentiel de conversion local.</p>
+      <p>Sélectionnez directement le créneau de votre choix dans l'agenda ci-dessous pour un échange téléphonique ou visio rapide.</p>
     </div>
 
     <!-- WIDGET INLINE CAL.COM -->
@@ -481,6 +534,61 @@
   </div>
 </section>
 
+<!-- SECTION NOUS CONTACTER DIRECTEMENT -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <!-- INFO DIRECTE -->
+      <div class="contact-info">
+        <h3>Vous préférez nous écrire directement ?</h3>
+        <p>Pas envie d'un rendez-vous planifié ? Remplissez ce formulaire express ou contactez-nous par e-mail. Nous vous recontractons sous 2h ouvrées.</p>
+        
+        <ul class="contact-details">
+          <li><strong>E-mail :</strong> coredynamics.d@gmail.com</li>
+          <li><strong>Délai prototype :</strong> 72 heures sans engagement</li>
+          <li><strong>Zone d'intervention :</strong> France, Belgique, Suisse, Luxembourg</li>
+        </ul>
+
+        <div style="padding-top:12px;">
+          <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="width:100%;">
+            📅 Préférer un rendez-vous téléphonique
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMULAIRE RAPIDE -->
+      <div class="contact-form-card">
+        <h3>Formulaire de contact rapide</h3>
+        <p>Décrivez brièvement votre besoin et recevez une estimation personnalisée.</p>
+        
+        <form action="mailto:coredynamics.d@gmail.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">VOTRE NOM & PRÉNOM</label>
+            <input type="text" id="name" name="nom" placeholder="Ex: Jean Dupont" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="company">VOTRE SOCIÉTÉ / ACTIVITÉ</label>
+            <input type="text" id="company" name="societe" placeholder="Ex: Dupont Menuiserie, Artisan Plombier..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">TÉLÉPHONE OU E-MAIL</label>
+            <input type="text" id="phone" name="contact" placeholder="06 12 34 56 78 ou contact@..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">VOTRE PROJET EN QUELQUES MOTS</label>
+            <textarea id="message" name="message" rows="4" placeholder="Ex: Je souhaite moderniser mon site actuel et intégrer une démo 3D de mes réalisations..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-secondary" style="width:100%;">✉️ Envoyer mon message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SECTION FAQ -->
 <section id="faq">
   <div class="wrap">
@@ -492,7 +600,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <h4><span class="q mono">Q.</span>Comment s'effectue la création du prototype gratuit sous 72h ?</h4>
-        <p>Il vous suffit de réserver un créneau ou de nous envoyer un message. Nous modélisons une première version 3D et vous envoyons un lien d'essai privé sur mobile. Vous ne payez rien tant que vous ne validez pas le projet.</p>
+        <p>Il vous suffit de nous envoyer un message ou de planifier un créneau. Nous modélisons une première version 3D et vous envoyons un lien d'essai privé sur mobile. Vous ne payez rien tant que vous ne validez pas le projet.</p>
       </div>
       <div class="faq-item">
         <h4><span class="q mono">Q.</span>Est-ce que l'animation 3D ralentit le site sur smartphone ?</h4>
@@ -513,10 +621,10 @@
     <p>Demandez votre aperçu 3D gratuit sous 72h. Aucune carte bancaire ni engagement requis.</p>
     <div class="final-cta-buttons">
       <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="padding:16px 36px;font-size:1.05rem;">
-        📅 Prendre un RDV téléphonique
+        📅 Réserver mon créneau de démonstration
       </button>
-      <a href="mailto:coredynamics.d@gmail.com?subject=Demande%20Aper%C3%A7u%203D%20Gratuit" class="btn btn-ghost" style="color:var(--paper);border-color:var(--paper);padding:16px 28px;">
-        ✉️ Écrire par e-mail
+      <a href="#contact" class="btn btn-ghost" style="color:var(--paper);border-color:var(--paper);padding:16px 28px;">
+        ✉️ Envoyer un message rapide
       </a>
     </div>
   </div>
