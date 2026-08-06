@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,638 +13,638 @@
 
 <!-- Integration Cal.com (Outil Open-Source de Prise de RDV) -->
 <script type="text/javascript">
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; window.Cal = window.Cal || function () { let cal = window.Cal; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d = document; s = d.createElement("script"); s.async = true; s.src = A; d.head.appendChild(s); cal.loaded = true; } if (arg = arguments, arg[0] === "init") { let api = function () { p(api, arguments); }; let namespace = arg[1]; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], arg); return; } p(cal, arg); return; } p(cal, arg); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-  Cal("init", {origin:"https://cal.com"});
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; window.Cal = window.Cal || function () { let cal = window.Cal; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d = document; s = d.createElement("script"); s.async = true; s.src = A; d.head.appendChild(s); cal.loaded = true; } if (arg = arguments, arg[0] === "init") { let api = function () { p(api, arguments); }; let namespace = arg[1]; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], arg); return; } p(cal, arg); return; } p(cal, arg); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", {origin:"https://cal.com"});
 
-  // Style personnalisé pour le widget Cal.com
-  Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#E8622C"}},"hideEventTypeDetails":false,"layout":"month_view"});
+// Style personnalisé pour le widget Cal.com
+Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#E8622C"}},"hideEventTypeDetails":false,"layout":"month_view"});
 </script>
 
 <style>
-  :root{
-    --ink:#141F24;
-    --ink-soft:#2C3E47;
-    --paper:#F9F7F2;
-    --paper-dim:#ECE8DF;
-    --signal:#E8622C;
-    --signal-dark:#C74E1F;
-    --moss:#4A6B62;
-    --moss-dark:#344C46;
-    --line:#D8D2C2;
-    --white:#FFFFFF;
-    --shadow:0 16px 40px rgba(20,31,36,0.08);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{
-    font-family:'Zilla Slab',serif;
-    font-weight:700;
-    color:var(--ink);
-    line-height:1.15;
-    letter-spacing:-0.01em;
-  }
-  .mono{font-family:'Roboto Mono',monospace;}
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
-  img,svg{display:block;max-width:100%;}
-  :focus-visible{outline:3px solid var(--signal);outline-offset:3px;}
+:root{
+--ink:#141F24;
+--ink-soft:#2C3E47;
+--paper:#F9F7F2;
+--paper-dim:#ECE8DF;
+--signal:#E8622C;
+--signal-dark:#C74E1F;
+--moss:#4A6B62;
+--moss-dark:#344C46;
+--line:#D8D2C2;
+--white:#FFFFFF;
+--shadow:0 16px 40px rgba(20,31,36,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+background:var(--paper);
+color:var(--ink);
+font-family:'Inter',sans-serif;
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+font-family:'Zilla Slab',serif;
+font-weight:700;
+color:var(--ink);
+line-height:1.15;
+letter-spacing:-0.01em;
+}
+.mono{font-family:'Roboto Mono',monospace;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+img,svg{display:block;max-width:100%;}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;}
 
-  /* BARRE DE NAVIGATION */
-  .nav{
-    position:sticky;top:0;z-index:1000;
-    background:rgba(249,247,242,0.96);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav .wrap{
-    display:flex;align-items:center;justify-space-between;
-    height:74px;gap:16px;
-  }
-  .brand{
-    display:flex;align-items:center;gap:12px;
-    font-family:'Zilla Slab',serif;font-weight:700;font-size:1.25rem;
-    flex-shrink:0;
-  }
-  .brand-logo{
-    width:38px;height:38px;
-    object-fit:cover;
-    border-radius:4px;
-    border:1px solid var(--line);
-    flex-shrink:0;
-  }
-  .nav-right{
-    display:flex;align-items:center;gap:24px;
-    flex-shrink:0;
-  }
-  .nav-links{
-    display:flex;gap:22px;align-items:center;
-  }
-  .nav-links a{font-size:0.9rem;font-weight:500;color:var(--ink-soft);transition:color .15s;white-space:nowrap;}
-  .nav-links a:hover{color:var(--signal-dark);}
-  .nav-cta-group{display:flex;gap:10px;align-items:center;}
-  .nav-cta{
-    background:var(--signal);color:var(--white)!important;
-    padding:11px 18px;font-weight:600;font-size:0.86rem;
-    border-radius:2px;transition:all .15s ease;
-    white-space:nowrap;flex-shrink:0;
-    box-shadow:0 4px 12px rgba(232,98,44,0.25);
-    cursor:pointer;
-  }
-  .nav-cta:hover{background:var(--signal-dark);transform:translateY(-1px);}
+/* BARRE DE NAVIGATION */
+.nav{
+position:sticky;top:0;z-index:1000;
+background:rgba(249,247,242,0.96);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--line);
+}
+.nav .wrap{
+display:flex;align-items:center;justify-space-between;
+height:74px;gap:16px;
+}
+.brand{
+display:flex;align-items:center;gap:12px;
+font-family:'Zilla Slab',serif;font-weight:700;font-size:1.25rem;
+flex-shrink:0;
+}
+.brand-logo{
+width:38px;height:38px;
+object-fit:cover;
+border-radius:4px;
+border:1px solid var(--line);
+flex-shrink:0;
+}
+.nav-right{
+display:flex;align-items:center;gap:24px;
+flex-shrink:0;
+}
+.nav-links{
+display:flex;gap:22px;align-items:center;
+}
+.nav-links a{font-size:0.9rem;font-weight:500;color:var(--ink-soft);transition:color .15s;white-space:nowrap;}
+.nav-links a:hover{color:var(--signal-dark);}
+.nav-cta-group{display:flex;gap:10px;align-items:center;}
+.nav-cta{
+background:var(--signal);color:var(--white)!important;
+padding:11px 18px;font-weight:600;font-size:0.86rem;
+border-radius:2px;transition:all .15s ease;
+white-space:nowrap;flex-shrink:0;
+box-shadow:0 4px 12px rgba(232,98,44,0.25);
+cursor:pointer;
+}
+.nav-cta:hover{background:var(--signal-dark);transform:translateY(-1px);}
 
-  /* HERO */
-  .hero{padding:88px 0 64px;position:relative;}
-  .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
-    color:var(--moss-dark);background:rgba(74,107,98,0.12);
-    padding:6px 14px;margin-bottom:20px;
-    border:1px solid rgba(74,107,98,0.25);border-radius:2px;
-  }
-  .eyebrow .dot{width:7px;height:7px;background:var(--signal);border-radius:50%;}
-  .hero h1{font-size:clamp(2.2rem,3.8vw,3.4rem);margin-bottom:20px;}
-  .hero h1 em{font-style:normal;color:var(--signal-dark);background:linear-gradient(180deg,transparent 70%,rgba(232,98,44,0.18) 70%);}
-  .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:540px;margin-bottom:32px;}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    padding:15px 28px;font-weight:600;font-size:0.92rem;
-    border:1px solid transparent;border-radius:2px;cursor:pointer;transition:all .15s ease;
-  }
-  .btn-primary{background:var(--signal);color:var(--white);}
-  .btn-primary:hover{background:var(--signal-dark);transform:translateY(-1px);}
-  .btn-secondary{background:var(--moss);color:var(--white);}
-  .btn-secondary:hover{background:var(--moss-dark);transform:translateY(-1px);}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
-  
-  .hero-trust{display:flex;gap:28px;padding-top:24px;border-top:1px solid var(--line);}
-  .hero-trust div{font-size:0.84rem;color:var(--ink-soft);}
-  .hero-trust strong{display:block;font-family:'Zilla Slab',serif;font-size:1.35rem;color:var(--ink);}
+/* HERO */
+.hero{padding:88px 0 64px;position:relative;}
+.hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
+.eyebrow{
+display:inline-flex;align-items:center;gap:8px;
+font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
+color:var(--moss-dark);background:rgba(74,107,98,0.12);
+padding:6px 14px;margin-bottom:20px;
+border:1px solid rgba(74,107,98,0.25);border-radius:2px;
+}
+.eyebrow .dot{width:7px;height:7px;background:var(--signal);border-radius:50%;}
+.hero h1{font-size:clamp(2.2rem,3.8vw,3.4rem);margin-bottom:20px;}
+.hero h1 em{font-style:normal;color:var(--signal-dark);background:linear-gradient(180deg,transparent 70%,rgba(232,98,44,0.18) 70%);}
+.hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:540px;margin-bottom:32px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:10px;
+padding:15px 28px;font-weight:600;font-size:0.92rem;
+border:1px solid transparent;border-radius:2px;cursor:pointer;transition:all .15s ease;
+}
+.btn-primary{background:var(--signal);color:var(--white);}
+.btn-primary:hover{background:var(--signal-dark);transform:translateY(-1px);}
+.btn-secondary{background:var(--moss);color:var(--white);}
+.btn-secondary:hover{background:var(--moss-dark);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);}
 
-  /* CARD PREVIEW HERO */
-  .preview-card{
-    background:var(--white);
-    border:1px solid var(--line);
-    box-shadow:var(--shadow);
-    padding:0;
-  }
-  .preview-head{
-    background:var(--ink);color:var(--paper);
-    padding:14px 20px;
-    display:flex;justify-content:space-between;align-items:center;
-    font-family:'Roboto Mono',monospace;font-size:0.75rem;
-  }
-  .preview-head .badge{
-    background:var(--signal);color:var(--white);
-    padding:2px 8px;font-size:0.68rem;font-weight:600;text-transform:uppercase;
-  }
-  .preview-body{padding:24px 20px;}
-  .preview-stat{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:12px 0;border-bottom:1px dashed var(--line);
-    font-size:0.88rem;
-  }
-  .preview-stat:last-child{border-bottom:none;}
-  .preview-stat .val{font-family:'Roboto Mono',monospace;font-weight:600;}
-  .val.bad{color:var(--signal-dark);}
-  .val.ok{color:var(--moss-dark);}
-  .preview-foot{
-    padding:16px 20px;background:var(--paper-dim);
-    font-size:0.85rem;color:var(--ink-soft);font-style:italic;
-    border-top:1px solid var(--line);
-  }
+.hero-trust{display:flex;gap:28px;padding-top:24px;border-top:1px solid var(--line);}
+.hero-trust div{font-size:0.84rem;color:var(--ink-soft);}
+.hero-trust strong{display:block;font-family:'Zilla Slab',serif;font-size:1.35rem;color:var(--ink);}
 
-  /* SECTIONS */
-  section{padding:88px 0;}
-  .section-alt{background:var(--paper-dim);}
-  .kicker{
-    font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
-    color:var(--signal-dark);letter-spacing:0.06em;text-transform:uppercase;
-    margin-bottom:12px;display:block;
-  }
-  .section-head{max-width:680px;margin-bottom:48px;}
-  .section-head h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:14px;}
-  .section-head p{color:var(--ink-soft);font-size:1.05rem;}
+/* CARD PREVIEW HERO */
+.preview-card{
+background:var(--white);
+border:1px solid var(--line);
+box-shadow:var(--shadow);
+padding:0;
+}
+.preview-head{
+background:var(--ink);color:var(--paper);
+padding:14px 20px;
+display:flex;justify-content:space-between;align-items:center;
+font-family:'Roboto Mono',monospace;font-size:0.75rem;
+}
+.preview-head .badge{
+background:var(--signal);color:var(--white);
+padding:2px 8px;font-size:0.68rem;font-weight:600;text-transform:uppercase;
+}
+.preview-body{padding:24px 20px;}
+.preview-stat{
+display:flex;justify-content:space-between;align-items:center;
+padding:12px 0;border-bottom:1px dashed var(--line);
+font-size:0.88rem;
+}
+.preview-stat:last-child{border-bottom:none;}
+.preview-stat .val{font-family:'Roboto Mono',monospace;font-weight:600;}
+.val.bad{color:var(--signal-dark);}
+.val.ok{color:var(--moss-dark);}
+.preview-foot{
+padding:16px 20px;background:var(--paper-dim);
+font-size:0.85rem;color:var(--ink-soft);font-style:italic;
+border-top:1px solid var(--line);
+}
 
-  /* PROBLEM GRID */
-  .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .problem-card{
-    background:var(--white);padding:32px 26px;
-    border:1px solid var(--line);box-shadow:var(--shadow);
-  }
-  .problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.85rem;color:var(--signal-dark);margin-bottom:14px;display:block;}
-  .problem-card h3{font-size:1.2rem;margin-bottom:12px;}
-  .problem-card p{color:var(--ink-soft);font-size:0.94rem;line-height:1.6;}
+/* SECTIONS */
+section{padding:88px 0;}
+.section-alt{background:var(--paper-dim);}
+.kicker{
+font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:600;
+color:var(--signal-dark);letter-spacing:0.06em;text-transform:uppercase;
+margin-bottom:12px;display:block;
+}
+.section-head{max-width:680px;margin-bottom:48px;}
+.section-head h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:14px;}
+.section-head p{color:var(--ink-soft);font-size:1.05rem;}
 
-  /* PRICING GRID */
-  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .price-card{
-    background:var(--white);padding:34px 26px;
-    border:1px solid var(--line);
-    display:flex;flex-direction:column;position:relative;
-  }
-  .price-card.featured{
-    background:var(--ink);color:var(--paper);border-color:var(--ink);
-    box-shadow:0 20px 48px rgba(0,0,0,0.16);transform:scale(1.02);
-  }
-  .price-card.featured h3, .price-card.featured .desc{color:var(--paper);}
-  .price-card.featured .price-num{color:var(--signal);}
-  .price-card.featured .featlist li{color:#DFDAD0;border-color:rgba(247,245,240,0.15);}
-  .price-badge{
-    font-family:'Roboto Mono',monospace;font-size:0.72rem;text-transform:uppercase;
-    color:var(--moss-dark);letter-spacing:0.05em;margin-bottom:10px;
-  }
-  .price-card.featured .price-badge{color:var(--signal);}
-  .price-card h3{font-size:1.3rem;margin-bottom:8px;}
-  .price-card .desc{font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;min-height:42px;}
-  .price-num{font-family:'Zilla Slab',serif;font-size:2.2rem;font-weight:700;margin-bottom:4px;}
-  .price-sub{font-family:'Roboto Mono',monospace;font-size:0.75rem;color:var(--moss-dark);margin-bottom:14px;}
-  .price-card.featured .price-sub{color:#B9CFC8;}
-  
-  .saas-option-box{
-    background:rgba(20,31,36,0.04);
-    border-left:3px solid var(--moss);
-    padding:12px 14px;
-    margin-bottom:24px;
-    font-size:0.8rem;
-    font-family:'Roboto Mono',monospace;
-    color:var(--ink-soft);
-  }
-  .price-card.featured .saas-option-box{
-    background:rgba(232,98,44,0.14);
-    border-left-color:var(--signal);
-    color:var(--paper);
-  }
+/* PROBLEM GRID */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.problem-card{
+background:var(--white);padding:32px 26px;
+border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.problem-card .num{font-family:'Roboto Mono',monospace;font-size:0.85rem;color:var(--signal-dark);margin-bottom:14px;display:block;}
+.problem-card h3{font-size:1.2rem;margin-bottom:12px;}
+.problem-card p{color:var(--ink-soft);font-size:0.94rem;line-height:1.6;}
 
-  .featlist{list-style:none;flex:1;margin-bottom:28px;}
-  .featlist li{
-    font-size:0.88rem;padding:10px 0;border-bottom:1px dashed var(--line);
-    display:flex;gap:8px;align-items:flex-start;
-  }
-  .featlist li::before{content:"✓";color:var(--signal-dark);font-weight:bold;}
-  .price-card.featured .featlist li::before{color:var(--signal);}
+/* PRICING GRID */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.price-card{
+background:var(--white);padding:34px 26px;
+border:1px solid var(--line);
+display:flex;flex-direction:column;position:relative;
+}
+.price-card.featured{
+background:var(--ink);color:var(--paper);border-color:var(--ink);
+box-shadow:0 20px 48px rgba(0,0,0,0.16);transform:scale(1.02);
+}
+.price-card.featured h3, .price-card.featured .desc{color:var(--paper);}
+.price-card.featured .price-num{color:var(--signal);}
+.price-card.featured .featlist li{color:#DFDAD0;border-color:rgba(247,245,240,0.15);}
+.price-badge{
+font-family:'Roboto Mono',monospace;font-size:0.72rem;text-transform:uppercase;
+color:var(--moss-dark);letter-spacing:0.05em;margin-bottom:10px;
+}
+.price-card.featured .price-badge{color:var(--signal);}
+.price-card h3{font-size:1.3rem;margin-bottom:8px;}
+.price-card .desc{font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;min-height:42px;}
+.price-num{font-family:'Zilla Slab',serif;font-size:2.2rem;font-weight:700;margin-bottom:4px;}
+.price-sub{font-family:'Roboto Mono',monospace;font-size:0.75rem;color:var(--moss-dark);margin-bottom:14px;}
+.price-card.featured .price-sub{color:#B9CFC8;}
 
-  /* RENDEZ-VOUS CAL.COM */
-  .booking-section {
-    background: var(--white);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .booking-card {
-    background: var(--paper-dim);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 24px;
-    margin-top: 32px;
-    min-height: 580px;
-  }
+.saas-option-box{
+background:rgba(20,31,36,0.04);
+border-left:3px solid var(--moss);
+padding:12px 14px;
+margin-bottom:24px;
+font-size:0.8rem;
+font-family:'Roboto Mono',monospace;
+color:var(--ink-soft);
+}
+.price-card.featured .saas-option-box{
+background:rgba(232,98,44,0.14);
+border-left-color:var(--signal);
+color:var(--paper);
+}
 
-  /* SECTION CONTACT DIRECT */
-  .contact-section {background:var(--paper-dim);}
-  .contact-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:48px;
-    align-items:start;
-  }
-  .contact-info {
-    background:var(--ink);
-    color:var(--paper);
-    padding:40px 32px;
-    border:1px solid var(--ink);
-  }
-  .contact-info h3 {color:var(--paper);font-size:1.5rem;margin-bottom:16px;}
-  .contact-info p {color:#D5D0C5;margin-bottom:24px;font-size:0.95rem;}
-  .contact-details {list-style:none;margin-bottom:32px;}
-  .contact-details li {
-    display:flex;gap:12px;align-items:center;
-    padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.1);
-    font-size:0.92rem;
-  }
-  .contact-details li strong {color:var(--signal);}
+.featlist{list-style:none;flex:1;margin-bottom:28px;}
+.featlist li{
+font-size:0.88rem;padding:10px 0;border-bottom:1px dashed var(--line);
+display:flex;gap:8px;align-items:flex-start;
+}
+.featlist li::before{content:"✓";color:var(--signal-dark);font-weight:bold;}
+.price-card.featured .featlist li::before{color:var(--signal);}
 
-  .contact-form-card {
-    background:var(--white);
-    border:1px solid var(--line);
-    padding:36px 30px;
-    box-shadow:var(--shadow);
-  }
-  .contact-form-card h3 {font-size:1.35rem;margin-bottom:8px;}
-  .contact-form-card p {color:var(--ink-soft);font-size:0.9rem;margin-bottom:24px;}
-  .form-group {margin-bottom:18px;}
-  .form-group label {display:block;font-size:0.82rem;font-weight:600;font-family:'Roboto Mono',monospace;margin-bottom:6px;color:var(--ink);}
-  .form-group input, .form-group textarea {
-    width:100%;padding:12px 14px;
-    border:1px solid var(--line);
-    background:var(--paper);
-    font-family:'Inter',sans-serif;font-size:0.92rem;
-    color:var(--ink);
-    border-radius:2px;
-  }
-  .form-group input:focus, .form-group textarea:focus {
-    outline:none;border-color:var(--signal);background:var(--white);
-  }
+/* RENDEZ-VOUS CAL.COM */
+.booking-section {
+background: var(--white);
+border-top: 1px solid var(--line);
+border-bottom: 1px solid var(--line);
+}
+.booking-card {
+background: var(--paper-dim);
+border: 1px solid var(--line);
+border-radius: 4px;
+padding: 24px;
+margin-top: 32px;
+min-height: 580px;
+}
 
-  /* FAQ */
-  .faq-list{max-width:840px;margin:0 auto;}
-  .faq-item{background:var(--white);border:1px solid var(--line);padding:26px;margin-bottom:16px;}
-  .faq-item h4{font-size:1.08rem;margin-bottom:10px;display:flex;gap:10px;align-items:baseline;}
-  .faq-item h4 .q{font-family:'Roboto Mono',monospace;color:var(--signal-dark);}
-  .faq-item p{color:var(--ink-soft);font-size:0.95rem;padding-left:24px;line-height:1.6;}
+/* SECTION CONTACT DIRECT */
+.contact-section {background:var(--paper-dim);}
+.contact-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:48px;
+align-items:start;
+}
+.contact-info {
+background:var(--ink);
+color:var(--paper);
+padding:40px 32px;
+border:1px solid var(--ink);
+}
+.contact-info h3 {color:var(--paper);font-size:1.5rem;margin-bottom:16px;}
+.contact-info p {color:#D5D0C5;margin-bottom:24px;font-size:0.95rem;}
+.contact-details {list-style:none;margin-bottom:32px;}
+.contact-details li {
+display:flex;gap:12px;align-items:center;
+padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.1);
+font-size:0.92rem;
+}
+.contact-details li strong {color:var(--signal);}
 
-  /* FINAL CTA */
-  .final-cta{
-    background:var(--ink);color:var(--paper);
-    padding:88px 0;text-align:center;
-  }
-  .final-cta h2{color:var(--paper);font-size:clamp(1.9rem,3.8vw,2.6rem);margin-bottom:16px;}
-  .final-cta p{color:#D5D0C5;max-width:580px;margin:0 auto 36px;font-size:1.05rem;}
-  .final-cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.contact-form-card {
+background:var(--white);
+border:1px solid var(--line);
+padding:36px 30px;
+box-shadow:var(--shadow);
+}
+.contact-form-card h3 {font-size:1.35rem;margin-bottom:8px;}
+.contact-form-card p {color:var(--ink-soft);font-size:0.9rem;margin-bottom:24px;}
+.form-group {margin-bottom:18px;}
+.form-group label {display:block;font-size:0.82rem;font-weight:600;font-family:'Roboto Mono',monospace;margin-bottom:6px;color:var(--ink);}
+.form-group input, .form-group textarea {
+width:100%;padding:12px 14px;
+border:1px solid var(--line);
+background:var(--paper);
+font-family:'Inter',sans-serif;font-size:0.92rem;
+color:var(--ink);
+border-radius:2px;
+}
+.form-group input:focus, .form-group textarea:focus {
+outline:none;border-color:var(--signal);background:var(--white);
+}
 
-  /* FOOTER */
-  footer{padding:40px 0;border-top:1px solid var(--line);background:var(--paper-dim);}
-  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-  .foot-brand{display:flex;align-items:center;gap:10px;font-family:'Zilla Slab',serif;font-weight:700;font-size:1.15rem;}
-  .foot-meta{font-size:0.86rem;color:var(--ink-soft);}
+/* FAQ */
+.faq-list{max-width:840px;margin:0 auto;}
+.faq-item{background:var(--white);border:1px solid var(--line);padding:26px;margin-bottom:16px;}
+.faq-item h4{font-size:1.08rem;margin-bottom:10px;display:flex;gap:10px;align-items:baseline;}
+.faq-item h4 .q{font-family:'Roboto Mono',monospace;color:var(--signal-dark);}
+.faq-item p{color:var(--ink-soft);font-size:0.95rem;padding-left:24px;line-height:1.6;}
 
-  /* RESPONSIVE DESIGN */
-  @media(max-width:960px){
-    .hero .wrap{grid-template-columns:1fr;}
-    .problem-grid{grid-template-columns:1fr;}
-    .pricing-grid{grid-template-columns:1fr;}
-    .contact-grid{grid-template-columns:1fr;}
-    .price-card.featured{transform:none;}
-    .nav-links{display:none;}
-  }
-  @media(max-width:560px){
-    .hero-ctas{flex-direction:column;}
-    .btn{width:100%;}
-  }
+/* FINAL CTA */
+.final-cta{
+background:var(--ink);color:var(--paper);
+padding:88px 0;text-align:center;
+}
+.final-cta h2{color:var(--paper);font-size:clamp(1.9rem,3.8vw,2.6rem);margin-bottom:16px;}
+.final-cta p{color:#D5D0C5;max-width:580px;margin:0 auto 36px;font-size:1.05rem;}
+.final-cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{padding:40px 0;border-top:1px solid var(--line);background:var(--paper-dim);}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-family:'Zilla Slab',serif;font-weight:700;font-size:1.15rem;}
+.foot-meta{font-size:0.86rem;color:var(--ink-soft);}
+
+/* RESPONSIVE DESIGN */
+@media(max-width:960px){
+.hero .wrap{grid-template-columns:1fr;}
+.problem-grid{grid-template-columns:1fr;}
+.pricing-grid{grid-template-columns:1fr;}
+.contact-grid{grid-template-columns:1fr;}
+.price-card.featured{transform:none;}
+.nav-links{display:none;}
+}
+@media(max-width:560px){
+.hero-ctas{flex-direction:column;}
+.btn{width:100%;}
+}
 </style>
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav class="nav">
-  <div class="wrap">
-    <a href="#top" class="brand">
-      <img src="https://consulting-coredynamics.github.io/assets/public/logocd.jpeg" alt="Core Dynamics Logo" class="brand-logo">
-      Core Dynamics
-    </a>
-    <div class="nav-right">
-      <div class="nav-links">
-        <a href="#pourquoi">L'Impact 3D</a>
-        <a href="#tarifs">Offres & Tarifs</a>
-        <a href="#rendezvous">Prendre RDV</a>
-        <a href="#contact">Nous contacter</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <div class="nav-cta-group">
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="nav-cta">📅 RDV Démo</button>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<a href="#top" class="brand">
+<img src="https://consulting-coredynamics.github.io/assets/public/logocd.jpeg" alt="Core Dynamics Logo" class="brand-logo">
+Core Dynamics
+</a>
+<div class="nav-right">
+<div class="nav-links">
+<a href="#pourquoi">L'Impact 3D</a>
+<a href="#tarifs">Offres & Tarifs</a>
+<a href="#rendezvous">Prendre RDV</a>
+<a href="#contact">Nous contacter</a>
+<a href="#faq">FAQ</a>
+</div>
+<div class="nav-cta-group">
+<button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="nav-cta">📅 RDV Démo</button>
+</div>
+</div>
+</div>
 </nav>
 
 <!-- HERO SECTION -->
 <header class="hero" id="top">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow"><span class="dot"></span>Artisans, Commerçants & Entreprises de Proximité</span>
-      <h1>Vos réalisations sont d'exception. <em>Votre site web doit l'être aussi.</em></h1>
-      <p class="lead">Core Dynamics conçoit des vitrines immersives 3D haut de gamme. Démarquez-vous définitivement de vos concurrents locaux, inspirez une confiance immédiate et signez des devis à forte valeur ajoutée.</p>
-      
-      <div class="hero-ctas">
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">📅 Réserver un créneau démo (15 min)</button>
-        <a href="#contact" class="btn btn-ghost">✉️ Poser une question / Message</a>
-      </div>
+<div class="wrap">
+<div>
+<span class="eyebrow"><span class="dot"></span>Artisans, Commerçants & Entreprises de Proximité</span>
+<h1>Vos réalisations sont d'exception. <em>Votre site web doit l'être aussi.</em></h1>
+<p class="lead">Core Dynamics conçoit des vitrines immersives 3D haut de gamme. Démarquez-vous définitivement de vos concurrents locaux, inspirez une confiance immédiate et signez des devis à forte valeur ajoutée.</p>
 
-      <div class="hero-trust">
-        <div><strong>72 heures</strong>pour recevoir votre prototype</div>
-        <div><strong>0 € engagé</strong>tant que vous n'avez pas validé</div>
-        <div><strong>Impact immédiat</strong>sur la signature de vos devis</div>
-      </div>
-    </div>
+<div class="hero-ctas">
+<button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">📅 Réserver un créneau démo (15 min)</button>
+<a href="#contact" class="btn btn-ghost">✉️ Poser une question / Message</a>
+</div>
 
-    <!-- CARTE PREVIEW SIMULATION -->
-    <div class="preview-card">
-      <div class="preview-head">
-        <span>PROTOTYPE TECHNIQUE</span>
-        <span class="badge">Rendu 3D GSAP</span>
-      </div>
-      <div class="preview-body">
-        <div class="preview-stat">
-          <span class="label">Image de marque</span>
-          <span class="val ok">Positionnement Luxe</span>
-        </div>
-        <div class="preview-stat">
-          <span class="label">Site concurrent classique</span>
-          <span class="val bad">Plat & Générique</span>
-        </div>
-        <div class="preview-stat">
-          <span class="label">Votre future vitrine</span>
-          <span class="val ok">Animation 3D au scroll</span>
-        </div>
-        <div class="preview-stat">
-          <span class="label">Formulaire & RDV</span>
-          <span class="val ok">Notification SMS / Cal.com</span>
-        </div>
-      </div>
-      <div class="preview-foot">
-        « Un seul contrat supplémentaire signé couvre l'intégralité de votre site 3D. »
-      </div>
-    </div>
-  </div>
+<div class="hero-trust">
+<div><strong>72 heures</strong>pour recevoir votre prototype</div>
+<div><strong>0 € engagé</strong>tant que vous n'avez pas validé</div>
+<div><strong>Impact immédiat</strong>sur la signature de vos devis</div>
+</div>
+</div>
+
+<!-- CARTE PREVIEW SIMULATION -->
+<div class="preview-card">
+<div class="preview-head">
+<span>PROTOTYPE TECHNIQUE</span>
+<span class="badge">Rendu 3D GSAP</span>
+</div>
+<div class="preview-body">
+<div class="preview-stat">
+<span class="label">Image de marque</span>
+<span class="val ok">Positionnement Luxe</span>
+</div>
+<div class="preview-stat">
+<span class="label">Site concurrent classique</span>
+<span class="val bad">Plat & Générique</span>
+</div>
+<div class="preview-stat">
+<span class="label">Votre future vitrine</span>
+<span class="val ok">Animation 3D au scroll</span>
+</div>
+<div class="preview-stat">
+<span class="label">Formulaire & RDV</span>
+<span class="val ok">Notification SMS / Cal.com</span>
+</div>
+</div>
+<div class="preview-foot">
+« Un seul contrat supplémentaire signé couvre l'intégralité de votre site 3D. »
+</div>
+</div>
+</div>
 </header>
 
 <!-- SECTION LE CONSTAT -->
 <section id="pourquoi">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Le levier de conversion</span>
-      <h2>Pourquoi les entreprises de confiance choisissent l'immersion 3D</h2>
-      <p>Lorsqu'un prospect hésite entre deux entreprises locales pour un projet important, la perception de la qualité fait toute la différence.</p>
-    </div>
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Le levier de conversion</span>
+<h2>Pourquoi les entreprises de confiance choisissent l'immersion 3D</h2>
+<p>Lorsqu'un prospect hésite entre deux entreprises locales pour un projet important, la perception de la qualité fait toute la différence.</p>
+</div>
 
-    <div class="problem-grid">
-      <div class="problem-card">
-        <span class="num mono">01</span>
-        <h3>Justifiez vos tarifs sans négociation</h3>
-        <p>Un site d'exception digne des plus grandes marques transmet une image de rigueur et de professionnalisme. Vos clients ne négocient plus vos devis.</p>
-      </div>
-      <div class="problem-card">
-        <span class="num mono">02</span>
-        <h3>Expliquez votre savoir-faire en 3D</h3>
-        <p>Que ce soit l'écorché d'un mur porteur, l'assemblage d'une toiture ou l'installation d'un équipement moderne, la 3D montre ce que le texte ne peut pas expliquer.</p>
-      </div>
-      <div class="problem-card">
-        <span class="num mono">03</span>
-        <h3>Filtrer et capter les bons chantiers</h3>
-        <p>Recevez des demandes de devis complètes et qualifiées directement sur votre téléphone, plutôt que de perdre du temps en déplacements inutiles.</p>
-      </div>
-    </div>
-  </div>
+<div class="problem-grid">
+<div class="problem-card">
+<span class="num mono">01</span>
+<h3>Justifiez vos tarifs sans négociation</h3>
+<p>Un site d'exception digne des plus grandes marques transmet une image de rigueur et de professionnalisme. Vos clients ne négocient plus vos devis.</p>
+</div>
+<div class="problem-card">
+<span class="num mono">02</span>
+<h3>Expliquez votre savoir-faire en 3D</h3>
+<p>Que ce soit l'écorché d'un mur porteur, l'assemblage d'une toiture ou l'installation d'un équipement moderne, la 3D montre ce que le texte ne peut pas expliquer.</p>
+</div>
+<div class="problem-card">
+<span class="num mono">03</span>
+<h3>Filtrer et capter les bons chantiers</h3>
+<p>Recevez des demandes de devis complètes et qualifiées directement sur votre téléphone, plutôt que de perdre du temps en déplacements inutiles.</p>
+</div>
+</div>
+</div>
 </section>
 
 <!-- SECTION TARIFS (HIGH-TICKET BRACKET & DUAL PAYMENT) -->
 <section class="section-alt" id="tarifs">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Investissement & Rentabilité</span>
-      <h2>Une grille tarifaire transparente avec 2 modes de paiement</h2>
-      <p>Choisissez l'Achat Comptant pour réduire vos frais fixes, ou le Modèle SaaS pour préserver votre trésorerie initiale.</p>
-    </div>
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Investissement & Rentabilité</span>
+<h2>Une grille tarifaire transparente avec 2 modes de paiement</h2>
+<p>Choisissez l'Achat Comptant pour réduire vos frais fixes, ou le Modèle SaaS pour préserver votre trésorerie initiale.</p>
+</div>
 
-    <div class="pricing-grid">
-      <!-- OFFRE 1 : STATIQUE -->
-      <div class="price-card">
-        <span class="price-badge mono">Classique</span>
-        <h3>Vitrine Statique</h3>
-        <p class="desc">Pour les commerces et indépendants recherchant une présence web sobre et efficace.</p>
-        <div class="price-num">à partir de 990 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
-        <div class="price-sub mono">Option Comptant : + 29 € HT / mo (Maintenance)</div>
-        
-        <div class="saas-option-box">
-          <strong>⚡ Option SaaS (Sans apport) :</strong><br>
-          0 € de création + 99 € HT / mois (12 mois)
-        </div>
+<div class="pricing-grid">
+<!-- OFFRE 1 : STATIQUE -->
+<div class="price-card">
+<span class="price-badge mono">Classique</span>
+<h3>Vitrine Statique</h3>
+<p class="desc">Pour les commerces et indépendants recherchant une présence web sobre et efficace.</p>
+<div class="price-num">à partir de 990 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
+<div class="price-sub mono">Option Comptant : + 29 € HT / mo (Maintenance)</div>
 
-        <ul class="featlist">
-          <li>Site 1 à 3 pages statiques (HTML/CSS)</li>
-          <li>Design épuré et chargement rapide</li>
-          <li>Optimisation Mobile & Tablettes</li>
-          <li>Intégration avis Google & carte</li>
-          <li>Formulaire de contact e-mail</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Commander le Statique</a>
-      </div>
+<div class="saas-option-box">
+<strong>⚡ Option SaaS (Sans apport) :</strong><br>
+0 € de création + 99 € HT / mois (12 mois)
+</div>
 
-      <!-- OFFRE 2 : PACK 3D (BEST-SELLER) -->
-      <div class="price-card featured">
-        <span class="price-badge mono">Le Plus Choisi</span>
-        <h3>Pack Visibilité 3D</h3>
-        <p class="desc">L'expérience immersive complète au scroll. L'outil idéal pour dominer votre marché local.</p>
-        <div class="price-num">à partir de 1 990 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
-        <div class="price-sub mono">Option Comptant : + 49 € HT / mo (Support & Mises à jour)</div>
-        
-        <div class="saas-option-box">
-          <strong>⚡ Option SaaS (Faible apport) :</strong><br>
-          490 € setup + 149 € HT / mois (12 mois)
-        </div>
+<ul class="featlist">
+<li>Site 1 à 3 pages statiques (HTML/CSS)</li>
+<li>Design épuré et chargement rapide</li>
+<li>Optimisation Mobile & Tablettes</li>
+<li>Intégration avis Google & carte</li>
+<li>Formulaire de contact e-mail</li>
+</ul>
+<a href="#contact" class="btn btn-ghost">Commander le Statique</a>
+</div>
 
-        <ul class="featlist">
-          <li>Site avec Animation 3D interactive au scroll</li>
-          <li>Intégration dynamique des avis Google</li>
-          <li>Formulaire de devis automatisé SMS/Mail</li>
-          <li>Optimisation Fiche Google My Business</li>
-          <li>Hébergement haute sécurité SSL inclus</li>
-        </ul>
-        <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">Lancer mon projet 3D</button>
-      </div>
+<!-- OFFRE 2 : PACK 3D (BEST-SELLER) -->
+<div class="price-card featured">
+<span class="price-badge mono">Le Plus Choisi</span>
+<h3>Pack Visibilité 3D</h3>
+<p class="desc">L'expérience immersive complète au scroll. L'outil idéal pour dominer votre marché local.</p>
+<div class="price-num">à partir de 1 990 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
+<div class="price-sub mono">Option Comptant : + 49 € HT / mo (Support & Mises à jour)</div>
 
-      <!-- OFFRE 3 : PRESTIGE 3D MULTI-PAGES -->
-      <div class="price-card">
-        <span class="price-badge mono">Haut de Gamme</span>
-        <h3>Prestige 3D Multi-Pages</h3>
-        <p class="desc">Pour les entreprises établies et PME visant l'excellence et un SEO local agressif.</p>
-        <div class="price-num">à partir de 3 490 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
-        <div class="price-sub mono">Option Comptant : + 49 € HT / mo (Suivi prioritaire & SEO)</div>
-        
-        <div class="saas-option-box">
-          <strong>⚡ Option SaaS (Étalé) :</strong><br>
-          990 € setup + 249 € HT / mois (12 mois)
-        </div>
+<div class="saas-option-box">
+<strong>⚡ Option SaaS (Faible apport) :</strong><br>
+490 € setup + 149 € HT / mois (12 mois)
+</div>
 
-        <ul class="featlist">
-          <li>Site complet 5 pages (Accueil, Services, Projets...)</li>
-          <li>2 Séquences d'animations 3D distinctes (ex: Avant/Après)</li>
-          <li>Stratégie de Référencement Local avancée</li>
-          <li>Galerie travaux & réalisations HD</li>
-          <li>Mises à jour et accompagnement prioritaire</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Demander une étude</a>
-      </div>
-    </div>
-  </div>
+<ul class="featlist">
+<li>Site avec Animation 3D interactive au scroll</li>
+<li>Intégration dynamique des avis Google</li>
+<li>Formulaire de devis automatisé SMS/Mail</li>
+<li>Optimisation Fiche Google My Business</li>
+<li>Hébergement haute sécurité SSL inclus</li>
+</ul>
+<button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary">Lancer mon projet 3D</button>
+</div>
+
+<!-- OFFRE 3 : PRESTIGE 3D MULTI-PAGES -->
+<div class="price-card">
+<span class="price-badge mono">Haut de Gamme</span>
+<h3>Prestige 3D Multi-Pages</h3>
+<p class="desc">Pour les entreprises établies et PME visant l'excellence et un SEO local agressif.</p>
+<div class="price-num">à partir de 3 490 € <span style="font-size:0.9rem;font-weight:normal;">HT</span></div>
+<div class="price-sub mono">Option Comptant : + 49 € HT / mo (Suivi prioritaire & SEO)</div>
+
+<div class="saas-option-box">
+<strong>⚡ Option SaaS (Étalé) :</strong><br>
+990 € setup + 249 € HT / mois (12 mois)
+</div>
+
+<ul class="featlist">
+<li>Site complet 5 pages (Accueil, Services, Projets...)</li>
+<li>2 Séquences d'animations 3D distinctes (ex: Avant/Après)</li>
+<li>Stratégie de Référencement Local avancée</li>
+<li>Galerie travaux & réalisations HD</li>
+<li>Mises à jour et accompagnement prioritaire</li>
+</ul>
+<a href="#contact" class="btn btn-ghost">Demander une étude</a>
+</div>
+</div>
+</div>
 </section>
 
 <!-- SECTION PRISE DE RENDEZ-VOUS INTEGRÉE (CAL.COM) -->
 <section class="booking-section" id="rendezvous">
-  <div class="wrap">
-    <div class="section-head" style="margin-bottom:24px;">
-      <span class="kicker">Option 1 — Agenda Direct</span>
-      <h2>Réservez une démonstration 3D privée (15 min)</h2>
-      <p>Sélectionnez directement le créneau de votre choix dans l'agenda ci-dessous pour un échange téléphonique ou visio rapide.</p>
-    </div>
+<div class="wrap">
+<div class="section-head" style="margin-bottom:24px;">
+<span class="kicker">Option 1 — Agenda Direct</span>
+<h2>Réservez une démonstration 3D privée (15 min)</h2>
+<p>Sélectionnez directement le créneau de votre choix dans l'agenda ci-dessous pour un échange téléphonique ou visio rapide.</p>
+</div>
 
-    <!-- WIDGET INLINE CAL.COM -->
-    <div class="booking-card" id="my-cal-inline"></div>
-    <script type="text/javascript">
-      Cal("inline", {
-        elementOrSelector: "#my-cal-inline",
-        calLink: "coredynamics/15min",
-        layout: "month_view"
-      });
-    </script>
-  </div>
+<!-- WIDGET INLINE CAL.COM -->
+<div class="booking-card" id="my-cal-inline"></div>
+<script type="text/javascript">
+Cal("inline", {
+elementOrSelector: "#my-cal-inline",
+calLink: "coredynamics/15min",
+layout: "month_view"
+});
+</script>
+</div>
 </section>
 
 <!-- SECTION NOUS CONTACTER DIRECTEMENT -->
 <section class="contact-section" id="contact">
-  <div class="wrap">
-    <div class="contact-grid">
-      <!-- INFO DIRECTE -->
-      <div class="contact-info">
-        <h3>Vous préférez nous écrire directement ?</h3>
-        <p>Pas envie d'un rendez-vous planifié ? Remplissez ce formulaire express ou contactez-nous par e-mail. Nous vous recontractons sous 2h ouvrées.</p>
-        
-        <ul class="contact-details">
-          <li><strong>E-mail :</strong> coredynamics.d@gmail.com</li>
-          <li><strong>Délai prototype :</strong> 72 heures sans engagement</li>
-          <li><strong>Zone d'intervention :</strong> France, Belgique, Suisse, Luxembourg</li>
-        </ul>
+<div class="wrap">
+<div class="contact-grid">
+<!-- INFO DIRECTE -->
+<div class="contact-info">
+<h3>Vous préférez nous écrire directement ?</h3>
+<p>Pas envie d'un rendez-vous planifié ? Remplissez ce formulaire express ou contactez-nous par e-mail. Nous vous recontractons sous 2h ouvrées.</p>
 
-        <div style="padding-top:12px;">
-          <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="width:100%;">
-            📅 Préférer un rendez-vous téléphonique
-          </button>
-        </div>
-      </div>
+<ul class="contact-details">
+<li><strong>E-mail :</strong> coredynamics.d@gmail.com</li>
+<li><strong>Délai prototype :</strong> 72 heures sans engagement</li>
+<li><strong>Zone d'intervention :</strong> France, Belgique, Suisse, Luxembourg</li>
+</ul>
 
-      <!-- FORMULAIRE RAPIDE -->
-      <div class="contact-form-card">
-        <h3>Formulaire de contact rapide</h3>
-        <p>Décrivez brièvement votre besoin et recevez une estimation personnalisée.</p>
-        
-        <form action="mailto:coredynamics.d@gmail.com" method="post" enctype="text/plain">
-          <div class="form-group">
-            <label for="name">VOTRE NOM & PRÉNOM</label>
-            <input type="text" id="name" name="nom" placeholder="Ex: Jean Dupont" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="company">VOTRE SOCIÉTÉ / ACTIVITÉ</label>
-            <input type="text" id="company" name="societe" placeholder="Ex: Dupont Menuiserie, Artisan Plombier..." required>
-          </div>
+<div style="padding-top:12px;">
+<button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="width:100%;">
+📅 Préférer un rendez-vous téléphonique
+</button>
+</div>
+</div>
 
-          <div class="form-group">
-            <label for="phone">TÉLÉPHONE OU E-MAIL</label>
-            <input type="text" id="phone" name="contact" placeholder="06 12 34 56 78 ou contact@..." required>
-          </div>
+<!-- FORMULAIRE RAPIDE -->
+<div class="contact-form-card">
+<h3>Formulaire de contact rapide</h3>
+<p>Décrivez brièvement votre besoin et recevez une estimation personnalisée.</p>
 
-          <div class="form-group">
-            <label for="message">VOTRE PROJET EN QUELQUES MOTS</label>
-            <textarea id="message" name="message" rows="4" placeholder="Ex: Je souhaite moderniser mon site actuel et intégrer une démo 3D de mes réalisations..." required></textarea>
-          </div>
+<form action="mailto:coredynamics.d@gmail.com" method="post" enctype="text/plain">
+<div class="form-group">
+<label for="name">VOTRE NOM & PRÉNOM</label>
+<input type="text" id="name" name="nom" placeholder="Ex: Jean Dupont" required>
+</div>
 
-          <button type="submit" class="btn btn-secondary" style="width:100%;">✉️ Envoyer mon message</button>
-        </form>
-      </div>
-    </div>
-  </div>
+<div class="form-group">
+<label for="company">VOTRE SOCIÉTÉ / ACTIVITÉ</label>
+<input type="text" id="company" name="societe" placeholder="Ex: Dupont Menuiserie, Artisan Plombier..." required>
+</div>
+
+<div class="form-group">
+<label for="phone">TÉLÉPHONE OU E-MAIL</label>
+<input type="text" id="phone" name="contact" placeholder="06 12 34 56 78 ou contact@..." required>
+</div>
+
+<div class="form-group">
+<label for="message">VOTRE PROJET EN QUELQUES MOTS</label>
+<textarea id="message" name="message" rows="4" placeholder="Ex: Je souhaite moderniser mon site actuel et intégrer une démo 3D de mes réalisations..." required></textarea>
+</div>
+
+<button type="submit" class="btn btn-secondary" style="width:100%;">✉️ Envoyer mon message</button>
+</form>
+</div>
+</div>
+</div>
 </section>
 
 <!-- SECTION FAQ -->
 <section id="faq">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Faq & Précisions</span>
-      <h2>Des réponses claires avant votre prototype</h2>
-    </div>
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Faq & Précisions</span>
+<h2>Des réponses claires avant votre prototype</h2>
+</div>
 
-    <div class="faq-list">
-      <div class="faq-item">
-        <h4><span class="q mono">Q.</span>Comment s'effectue la création du prototype gratuit sous 72h ?</h4>
-        <p>Il vous suffit de nous envoyer un message ou de planifier un créneau. Nous modélisons une première version 3D et vous envoyons un lien d'essai privé sur mobile. Vous ne payez rien tant que vous ne validez pas le projet.</p>
-      </div>
-      <div class="faq-item">
-        <h4><span class="q mono">Q.</span>Est-ce que l'animation 3D ralentit le site sur smartphone ?</h4>
-        <p>Non, nous utilisons une technologie de rendu en Canvas hautement optimisée. La séquence d'images s'adapte à la vitesse de connexion du téléphone (4G/5G) sans aucun ralentissement.</p>
-      </div>
-      <div class="faq-item">
-        <h4><span class="q mono">Q.</span>Pourquoi choisir la 3D plutôt qu'un site WordPress classique ?</h4>
-        <p>Un site WordPress classique ressemble à 95% des sites du web. Une animation 3D sur-mesure capte immédiatement l'attention de l'utilisateur et lui donne l'impression de faire appel à une entreprise de référence.</p>
-      </div>
-    </div>
-  </div>
+<div class="faq-list">
+<div class="faq-item">
+<h4><span class="q mono">Q.</span>Comment s'effectue la création du prototype gratuit sous 72h ?</h4>
+<p>Il vous suffit de nous envoyer un message ou de planifier un créneau. Nous modélisons une première version 3D et vous envoyons un lien d'essai privé sur mobile. Vous ne payez rien tant que vous ne validez pas le projet.</p>
+</div>
+<div class="faq-item">
+<h4><span class="q mono">Q.</span>Est-ce que l'animation 3D ralentit le site sur smartphone ?</h4>
+<p>Non, nous utilisons une technologie de rendu en Canvas hautement optimisée. La séquence d'images s'adapte à la vitesse de connexion du téléphone (4G/5G) sans aucun ralentissement.</p>
+</div>
+<div class="faq-item">
+<h4><span class="q mono">Q.</span>Pourquoi choisir la 3D plutôt qu'un site WordPress classique ?</h4>
+<p>Un site WordPress classique ressemble à 95% des sites du web. Une animation 3D sur-mesure capte immédiatement l'attention de l'utilisateur et lui donne l'impression de faire appel à une entreprise de référence.</p>
+</div>
+</div>
+</div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="final-cta">
-  <div class="wrap">
-    <h2>Prêt à donner une dimension d'exception à votre entreprise ?</h2>
-    <p>Demandez votre aperçu 3D gratuit sous 72h. Aucune carte bancaire ni engagement requis.</p>
-    <div class="final-cta-buttons">
-      <button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="padding:16px 36px;font-size:1.05rem;">
-        📅 Réserver mon créneau de démonstration
-      </button>
-      <a href="#contact" class="btn btn-ghost" style="color:var(--paper);border-color:var(--paper);padding:16px 28px;">
-        ✉️ Envoyer un message rapide
-      </a>
-    </div>
-  </div>
+<div class="wrap">
+<h2>Prêt à donner une dimension d'exception à votre entreprise ?</h2>
+<p>Demandez votre aperçu 3D gratuit sous 72h. Aucune carte bancaire ni engagement requis.</p>
+<div class="final-cta-buttons">
+<button data-cal-link="coredynamics/15min" data-cal-namespace="" data-cal-config='{"layout":"month_view"}' class="btn btn-primary" style="padding:16px 36px;font-size:1.05rem;">
+📅 Réserver mon créneau de démonstration
+</button>
+<a href="#contact" class="btn btn-ghost" style="color:var(--paper);border-color:var(--paper);padding:16px 28px;">
+✉️ Envoyer un message rapide
+</a>
+</div>
+</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="wrap foot-grid">
-    <div class="foot-brand">
-      <img src="https://consulting-coredynamics.github.io/assets/public/logocd.jpg" alt="Core Dynamics Logo" class="brand-logo">
-      Core Dynamics
-    </div>
-    <div class="foot-meta">
-      Contact : <a href="mailto:coredynamics.d@gmail.com" style="text-decoration:underline;color:var(--ink);">coredynamics.d@gmail.com</a>
-    </div>
-  </div>
+<div class="wrap foot-grid">
+<div class="foot-brand">
+<img src="https://consulting-coredynamics.github.io/assets/public/logocd.jpg" alt="Core Dynamics Logo" class="brand-logo">
+Core Dynamics
+</div>
+<div class="foot-meta">
+Contact : <a href="mailto:coredynamics.d@gmail.com" style="text-decoration:underline;color:var(--ink);">coredynamics.d@gmail.com</a>
+</div>
+</div>
 </footer>
 
 </body>
