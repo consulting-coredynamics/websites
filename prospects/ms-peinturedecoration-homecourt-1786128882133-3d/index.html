@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- SCRIPT TRACKING WEBHOOK N8N (FIABLE NGROK & PROD) -->
+<script>
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const prospectId = urlParams.get('id');
+
+    if (!prospectId) return;
+
+    const webhookUrl = 'https://overeater-hastiness-unbolted.ngrok-free.dev/webhook/demo-tracker?ngrok-skip-browser-warning=true';
+
+    const payload = JSON.stringify({
+      prospect_id: prospectId,
+      timestamp: new Date().toISOString(),
+      user_agent: navigator.userAgent
+    });
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: payload,
+      keepalive: true
+    }).catch(function() {
+      const img = new Image();
+      img.src = webhookUrl + '&id=' + encodeURIComponent(prospectId);
+    });
+  })();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>MS Peinture&Décoration | Peintre en bâtiment à Homécourt — Immersion 3D</title>
+<meta name="description" content="MS Peinture&Décoration est votre partenaire de confiance pour tous vos travaux de Peintre en bâtiment à Homécourt.">
+
+<!-- Fonts Google -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- GSAP & ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<!-- Integration Cal.com -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; window.Cal = window.Cal || function () { let cal = window.Cal; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d = document; s = d.createElement("script"); s.async = true; s.src = A; d.head.appendChild(s); cal.loaded = true; } if (arg = arguments, arg[0] === "init") { let api = function () { p(api, arguments); }; let namespace = arg[1]; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], arg); return; } p(cal, arg); return; } p(cal, arg); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", {origin:"https://cal.com"});
+  Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#E8622C"}},"hideEventTypeDetails":false,"layout":"month_view"});
+</script>
+
+<style>
+  :root {
+    --bg-dark: #0A0F12;
+    --card-bg: rgba(13, 20, 24, 0.42); /* Opacité réduite pour maximiser la visibilité 3D */
+    --card-bg-hover: rgba(18, 28, 34, 0.60);
+    --border-light: rgba(255, 255, 255, 0.14);
+    --border-glow: rgba(56, 189, 248, 0.35);
+    --primary-cyan: #38BDF8;
+    --accent-orange: #FF6B2B;
+    --accent-orange-hover: #E05316;
+    --text-main: #FFFFFF;
+    --text-muted: #CBD5E1;
+    --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'Roboto Mono', monospace; }
+  .serif { font-family: 'Zilla Slab', serif; }
+
+  /* ÉCRAN DE CHARGEMENT */
+  #loader {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--bg-dark);
+    z-index: 99999;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+  }
+  #loader.is-hidden {
+    opacity: 0;
+    pointer-events: none !important;
+    display: none !important;
+  }
+  .loader-brand {
+    font-family: 'Zilla Slab', serif;
+    font-size: 2.2rem; font-weight: 700;
+    margin-bottom: 24px; letter-spacing: -0.02em;
+    text-align: center;
+    background: linear-gradient(135deg, #FFFFFF 30%, var(--primary-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .progress-bar-bg {
+    width: 280px; height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px; overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+  }
+  .progress-bar-fill {
+    width: 0%; height: 100%;
+    background: linear-gradient(90deg, var(--primary-cyan), var(--accent-orange));
+    border-radius: 10px;
+    transition: width 0.15s ease-out;
+  }
+  .loader-status { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+  /* HEADER FLOTTANT ET ULTRA-TRANSLUCIDE */
+  header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    z-index: 100;
+    padding: 16px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(10,15,18,0.85) 0%, rgba(10,15,18,0) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .logo {
+    font-family: 'Zilla Slab', serif; font-weight: 700; font-size: 1.25rem;
+    display: flex; align-items: center; gap: 12px;
+    color: #FFFFFF;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .brand-logo {
+    width: 38px; height: 38px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .header-cta {
+    background: var(--accent-orange); color: #fff;
+    padding: 11px 20px; font-weight: 600; font-size: 0.85rem;
+    text-decoration: none; border-radius: 4px; 
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 43, 0.35);
+  }
+  .header-cta:hover { 
+    background: var(--accent-orange-hover); 
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 107, 43, 0.5);
+  }
+
+  /* SECTION ANIMATION 3D SCROLL */
+  .animation-container {
+    position: relative;
+    height: 450vh;
+  }
+  .sticky-wrapper {
+    position: sticky; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Canvas 3D full screen avec dégradé d'ambiance */
+  canvas#canvas-3d {
+    position: absolute; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: block;
+    z-index: 1;
+  }
+
+  /* Vignette radiale subtile pour détacher les éléments tout en gardant le centre 3D visible */
+  .vignette-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(circle at center, transparent 45%, rgba(10, 15, 18, 0.65) 100%);
+  }
+
+  /* OVERLAYS TEXTES & POSITIONNEMENT INTELLIGENT */
+  .text-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+    padding: 0 8vw;
+    z-index: 3;
+  }
+
+  /* CARTE GLASSMORPHIC OPTIMISÉE POUR LA VISIBILITÉ 3D */
+  .step-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    padding: 32px 36px; 
+    max-width: 480px; 
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--shadow-glass);
+    opacity: 0; 
+    transform: translateY(30px) scale(0.98);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .step-card.active {
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .step-tag {
+    font-size: 0.78rem; 
+    color: var(--primary-cyan);
+    letter-spacing: 0.12em; 
+    text-transform: uppercase;
+    margin-bottom: 10px; 
+    display: inline-block;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  }
+  .step-card h2 {
+    font-family: 'Zilla Slab', serif; 
+    font-size: 1.85rem;
+    margin-bottom: 12px; 
+    line-height: 1.2;
+    color: #FFFFFF;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+  }
+  .step-card p {
+    color: var(--text-muted); 
+    font-size: 0.95rem; 
+    line-height: 1.6;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  }
+
+  /* SECTIONS GENERIQUES DU SITE */
+  section { padding: 90px 24px; border-top: 1px solid var(--border-light); }
+  .section-content { position: relative; z-index: 10; background: var(--bg-dark); }
+  .content-wrap { max-width: 1100px; margin: 0 auto; }
+  
+  .grid-3 {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 40px;
+  }
+  .feature-box {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--border-light);
+    padding: 32px 28px;
+    border-radius: 8px;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .feature-box:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-glow);
+  }
+  .feature-num { color: var(--accent-orange); font-size: 1.2rem; margin-bottom: 12px; }
+
+  /* ABOUT & GUARANTIES */
+  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+  .trust-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border-light);
+    padding: 32px; border-radius: 8px;
+  }
+  .trust-item { margin-bottom: 22px; }
+  .trust-item:last-child { margin-bottom: 0; }
+  .trust-item h4 { font-size: 1.08rem; color: var(--text-main); margin-bottom: 6px; }
+  .trust-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+  
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
+  .review-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--border-light);
+    padding: 32px; border-radius: 8px;
+  }
+  .review-stars { color: var(--accent-orange); margin-bottom: 16px; font-size: 1.1rem; }
+  .review-text { font-style: italic; color: var(--text-main); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; }
+  .review-author { font-weight: 600; color: var(--text-muted); font-size: 0.88rem; }
+
+  /* CONTACT & BOOKING */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .contact-info {
+    background: rgba(255,255,255,0.025);
+    padding: 40px 32px; border: 1px solid var(--border-light); border-radius: 8px;
+  }
+  .contact-info h3 { font-size: 1.45rem; margin-bottom: 12px; }
+  .contact-details { list-style: none; margin: 24px 0; }
+  .contact-details li { padding: 12px 0; border-bottom: 1px dashed var(--border-light); font-size: 0.92rem; }
+  .contact-form {
+    background: rgba(255,255,255,0.035);
+    padding: 40px 32px; border: 1px solid var(--border-light); border-radius: 8px;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.8rem; font-family: 'Roboto Mono', monospace; margin-bottom: 8px; color: var(--text-muted); }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 14px;
+    background: rgba(0,0,0,0.4); border: 1px solid var(--border-light);
+    color: var(--text-main); font-family: 'Inter', sans-serif;
+    border-radius: 4px; transition: border-color 0.2s ease;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary-cyan);
+  }
+  .btn-submit {
+    width: 100%; padding: 15px; background: var(--accent-orange);
+    color: #fff; border: none; font-weight: 600; cursor: pointer; border-radius: 4px;
+    transition: background 0.2s ease; font-size: 0.95rem;
+  }
+  .btn-submit:hover { background: var(--accent-orange-hover); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border-light);
+    padding: 56px 24px 36px;
+    background: var(--bg-dark);
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+  .foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 36px; max-width: 1100px; margin: 0 auto 36px; }
+  .foot-grid h3 { color: var(--text-main); margin-bottom: 14px; font-size: 1.2rem; }
+  .foot-contact-item { margin-bottom: 10px; }
+  .foot-bottom { text-align: center; padding-top: 28px; border-top: 1px solid var(--border-light); }
+
+  /* OPTIMISATION MOBILE SUR MESURE */
+  @media (max-width: 768px) {
+    header { padding: 12px 18px; }
+    .logo { font-size: 1.05rem; }
+    .brand-logo { width: 32px; height: 32px; }
+    .header-cta { padding: 8px 14px; font-size: 0.78rem; }
+
+    /* Sur mobile : positionner la carte en bas de l'écran avec une transparence accrue */
+    .text-overlay {
+      justify-content: center;
+      align-items: flex-end;
+      padding: 0 16px 36px 16px;
+    }
+    .step-card {
+      max-width: 100%;
+      padding: 20px 22px;
+      border-radius: 10px;
+      background: rgba(10, 15, 18, 0.55); /* Verre fluide sur mobile */
+    }
+    .step-card h2 { font-size: 1.45rem; margin-bottom: 8px; }
+    .step-card p { font-size: 0.86rem; line-height: 1.45; }
+
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    section { padding: 60px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN DE CHARGEMENT -->
+<div id="loader">
+  <div class="loader-brand">MS Peinture&Décoration</div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="loader-status mono" id="loader-text">Chargement des visuels... 0%</div>
+</div>
+
+<!-- HEADER FLOTTANT -->
+<header>
+  <div class="logo">
+    <img src="https://consulting-coredynamics.github.io/assets/public/logocd.jpg" alt="Logo" class="brand-logo">
+    <span>MS Peinture&Décoration</span>
+  </div>
+  <a href="tel:06 58 49 50 24" class="header-cta">Appeler : 06 58 49 50 24</a>
+</header>
+
+<!-- CONTENEUR ANIMATION SCROLL 3D -->
+<div class="animation-container" id="scroll-trigger-area">
+  <div class="sticky-wrapper">
+    <canvas id="canvas-3d"></canvas>
+    <div class="vignette-overlay"></div>
+
+    <div class="text-overlay">
+      <div class="step-card active" id="card-1">
+        <span class="step-tag mono">01 / Expertise</span>
+        <h2>Peintre en bâtiment à Homécourt</h2>
+        <p>Donnez une nouvelle vie à vos espaces de vie avec votre artisan peintre à Homécourt.</p>
+      </div>
+    </div>
+
+    <div class="text-overlay">
+      <div class="step-card" id="card-2">
+        <span class="step-tag mono">02 / Diagnostic</span>
+        <h2>Peinture intérieure</h2>
+        <p>Sublimez vos murs et plafonds avec des finitions impeccables adaptées à votre style.</p>
+      </div>
+    </div>
+
+    <div class="text-overlay">
+      <div class="step-card" id="card-3">
+        <span class="step-tag mono">03 / Savoir-Faire</span>
+        <h2>Pose de revêtements de sols et murs</h2>
+        <p>Habillez vos sols et posez vos papiers peints pour une décoration harmonieuse.</p>
+      </div>
+    </div>
+
+    <div class="text-overlay">
+      <div class="step-card" id="card-4">
+        <span class="step-tag mono">04 / Engagement</span>
+        <h2>Ravalement de façades et boiseries</h2>
+        <p>Protégez et embellissez l'extérieur de votre maison grâce à des traitements durables.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SERVICES DETAILLES -->
+<section class="section-content" id="services">
+  <div class="content-wrap">
+    <span class="mono" style="color:var(--accent-orange); text-transform:uppercase; font-weight:600; letter-spacing: 0.05em;">Nos prestations</span>
+    <h2 class="serif" style="font-size:2.4rem; margin-top:8px;">Un niveau d'exigence sans concession</h2>
+
+    <div class="grid-3">
+      <div class="feature-box">
+        <div class="feature-num mono"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+        <h3 class="serif" style="margin-bottom:10px; font-size:1.3rem;">Peinture intérieure</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height: 1.55;">Sublimez vos murs et plafonds avec des finitions impeccables adaptées à votre style.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num mono"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+        <h3 class="serif" style="margin-bottom:10px; font-size:1.3rem;">Pose de revêtements de sols et murs</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height: 1.55;">Habillez vos sols et posez vos papiers peints pour une décoration harmonieuse.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num mono"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+        <h3 class="serif" style="margin-bottom:10px; font-size:1.3rem;">Ravalement de façades et boiseries</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height: 1.55;">Protégez et embellissez l'extérieur de votre maison grâce à des traitements durables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A PROPOS ET ENGAGEMENTS -->
+<section class="section-content">
+  <div class="content-wrap about-grid">
+    <div>
+      <span class="mono" style="color:var(--accent-orange); text-transform:uppercase; font-weight:600;">Notre Histoire</span>
+      <h2 class="serif" style="font-size:2.4rem; margin-top:8px; margin-bottom:18px;">MS Peinture&Décoration</h2>
+      <p style="color:var(--text-muted); font-size:0.98rem; line-height:1.65;"><p><strong>MS Peinture&Décoration</strong> est votre partenaire privilégié à Homécourt pour tous vos projets de rénovation et d'embellissement intérieur comme extérieur. Forts d'un grand sens de l'esthétique et du détail, nous vous accompagnons de la conception à la réalisation de vos envies déco.</p><p>Nous attachons une importance toute particulière à la préparation des supports et à la propreté du chantier pour vous garantir un résultat à la hauteur de vos exigences. Confiez-nous vos projets et transformez votre intérieur en un espace qui vous ressemble.</p></p>
+    </div>
+    
+    <div class="trust-card">
+      <div class="trust-item">
+        <h4 class="serif">📍 Ancrage Local à Homécourt</h4>
+        <p>Intervention rapide et connaissance parfaite du secteur pour des chantiers maîtrisés.</p>
+      </div>
+      <div class="trust-item">
+        <h4 class="serif">🛡️ Garanties & Normes</h4>
+        <p>Prestations réalisées dans le respect strict des normes de sécurité et de conformité.</p>
+      </div>
+      <div class="trust-item">
+        <h4 class="serif">📋 Transparence Tarifaire</h4>
+        <p>Étude personnalisée et devis détaillé sans frais cachés avant tout démarrage de projet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="section-content">
+  <div class="content-wrap">
+    <span class="mono" style="color:var(--accent-orange); text-transform:uppercase; font-weight:600;">Témoignages</span>
+    <h2 class="serif" style="font-size:2.4rem; margin-top:8px;">Ils nous font confiance</h2>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Travail très propre et soigné dans notre salon. Les délais ont été respectés et les conseils déco étaient top."</p>
+        <div class="review-author">— Aurélie M.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Un artisan très consciencieux. Le rendu de la peinture sur nos murs est parfait, je referai appel à lui sans hésiter."</p>
+        <div class="review-author">— Christophe H.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION RENDEZ-VOUS / CAL.COM -->
+<section class="section-content" id="rendezvous">
+  <div class="content-wrap">
+    <span class="mono" style="color:var(--accent-orange); text-transform:uppercase; font-weight:600;">Prise de Rendez-vous</span>
+    <h2 class="serif" style="font-size:2.4rem; margin-top:8px; margin-bottom:24px;">Planifiez une intervention</h2>
+    <div id="my-cal-inline" style="width:100%;min-height:580px;background:rgba(255,255,255,0.02);border:1px solid var(--border-light); border-radius:8px; overflow:hidden;"></div>
+    <script type="text/javascript">
+      Cal("inline", {
+        elementOrSelector: "#my-cal-inline",
+        calLink: "coredynamics/15min",
+        layout: "month_view"
+      });
+    </script>
+  </div>
+</section>
+
+<!-- SECTION CONTACT DIRECT -->
+<section class="section-content" id="contact">
+  <div class="content-wrap contact-grid">
+    <div class="contact-info">
+      <h3 class="serif">Contactez-nous directement</h3>
+      <p style="color:var(--text-muted); font-size:0.92rem; margin-top:6px;">Une urgence ou un projet spécifique ? Laissez-nous un message.</p>
+      
+      <ul class="contact-details">
+        <li>Téléphone : <strong>06 58 49 50 24</strong></li>
+        <li>Ville : <strong>Homécourt</strong></li>
+        <li>Intervention : <strong>Zone locale et alentours</strong></li>
+      </ul>
+    </div>
+
+    <div class="contact-form">
+      <form action="mailto:coredynamics.d@gmail.com" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="nom">VOTRE NOM</label>
+          <input type="text" id="nom" name="nom" required>
+        </div>
+        <div class="form-group">
+          <label for="tel">VOTRE TÉLÉPHONE</label>
+          <input type="text" id="tel" name="telephone" required>
+        </div>
+        <div class="form-group">
+          <label for="msg">MESSAGE</label>
+          <textarea id="msg" name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">✉️ Envoyer</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3 class="serif">MS Peinture&Décoration</h3>
+      <p style="margin-top:6px; line-height: 1.5;">Votre artisan Peintre en bâtiment de confiance à Homécourt et ses alentours.</p>
+    </div>
+    <div>
+      <h3 class="serif">Contact</h3>
+      <div class="foot-contact-item">Téléphone : <strong>06 58 49 50 24</strong></div>
+      <div class="foot-contact-item">Zone d'intervention : <strong>Homécourt</strong></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    &copy; MS Peinture&Décoration — Tous droits réservés.
+  </div>
+</footer>
+
+<!-- SCRIPT MOTEUR GSAP & CANVAS (ADAPTATIF MOBILE / DESKTOP) -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const frameCount = parseInt("240") || 240;
+    
+    // Détection avancée du mode mobile / tablette
+    const checkIsMobile = () => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    };
+
+    const isMobile = checkIsMobile();
+    
+    // Choix dynamique de la source CDN selon le support
+    const baseUrl = isMobile 
+      ? "https://consulting-coredynamics.github.io/assets/public/default/mobile/" 
+      : "https://consulting-coredynamics.github.io/assets/public/default/desktop/";
+
+    const currentFrame = index => `${baseUrl}ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
+
+    const canvas = document.getElementById("canvas-3d");
+    const context = canvas.getContext("2d", { alpha: false });
+    
+    const sequence = { frame: 0 };
+    const images = [];
+    let loadedImagesCount = 0;
+    let isFinished = false;
+
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+
+    // Calcul réactif du rendu canvas (Optimisation DPR & Cadrage)
+    function resizeCanvas() {
+      // Sur mobile, limiter le dpr à 1.5 max pour garantir une fluidité parfaite (60 FPS) sans surchauffe
+      const dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : Math.min(window.devicePixelRatio || 1, 2);
+      
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
+
+      canvas.width = Math.round(viewportWidth * dpr);
+      canvas.height = Math.round(viewportHeight * dpr);
+      
+      canvas.style.width = `${viewportWidth}px`;
+      canvas.style.height = `${viewportHeight}px`;
+      
+      render();
+    }
+    
+    // Anti-rebond sur le resize mobile (évite les sauts au scroll dus à la barre d'adresse iOS/Android)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      if (Math.abs(window.innerWidth - viewportWidth) < 20) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resizeCanvas();
+      }, 200);
+    });
+
+    // Rendu intelligent Cover / Contain selon orientation
+    function render() {
+      const img = images[sequence.frame];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = isMobile ? "medium" : "high";
+
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      const canvasRatio = canvas.width / canvas.height;
+
+      let renderWidth, renderHeight;
+
+      if (isMobile) {
+        // En portrait mobile, cadrer pour valoriser la hauteur de l'objet sans le tronquer
+        if (canvasRatio > imgRatio) {
+          renderHeight = canvas.height * 0.88;
+          renderWidth = renderHeight * imgRatio;
+        } else {
+          renderWidth = canvas.width * 0.95;
+          renderHeight = renderWidth / imgRatio;
+        }
+      } else {
+        // En mode Desktop, remplir magnifiquement l'écran
+        if (canvasRatio > imgRatio) {
+          renderWidth = canvas.width;
+          renderHeight = canvas.width / imgRatio;
+        } else {
+          renderHeight = canvas.height;
+          renderWidth = canvas.height * imgRatio;
+        }
+      }
+
+      const x = (canvas.width - renderWidth) / 2;
+      const y = (canvas.height - renderHeight) / 2;
+
+      context.drawImage(img, x, y, renderWidth, renderHeight);
+    }
+
+    function handleImageLoad() {
+      if (isFinished) return;
+      loadedImagesCount++;
+      const percent = Math.min(100, Math.round((loadedImagesCount / frameCount) * 100));
+      
+      const fill = document.getElementById('progress-fill');
+      const text = document.getElementById('loader-text');
+      if (fill) fill.style.width = `${percent}%`;
+      if (text) text.innerText = `Chargement 3D... ${percent}%`;
+
+      if (loadedImagesCount >= frameCount) {
+        isFinished = true;
+        dismissLoader();
+      }
+    }
+
+    function dismissLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('is-hidden');
+      initScrollAnimation();
+    }
+
+    // Chargement des images de la séquence
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.onload = handleImageLoad;
+      img.onerror = handleImageLoad;
+      img.src = currentFrame(i);
+      images.push(img);
+    }
+
+    // Sécurité Fallback : Débloquer l'interface après 6 secondes max
+    setTimeout(() => {
+      if (!isFinished) {
+        isFinished = true;
+        dismissLoader();
+      }
+    }, 6000);
+
+    function initScrollAnimation() {
+      resizeCanvas();
+
+      gsap.to(sequence, {
+        frame: frameCount - 1,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#scroll-trigger-area",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: isMobile ? 0.1 : 0.25, // Scroll réactif et fluide
+          onUpdate: () => {
+            render();
+            updateTextCards(Math.round(sequence.frame));
+          }
+        }
+      });
+      
+      ScrollTrigger.refresh();
+    }
+
+    // Basculement progressif des cartes texte
+    function updateTextCards(frame) {
+      const c1 = document.getElementById('card-1');
+      const c2 = document.getElementById('card-2');
+      const c3 = document.getElementById('card-3');
+      const c4 = document.getElementById('card-4');
+
+      const step = frameCount / 4;
+
+      if(c1) c1.classList.toggle('active', frame >= 0 && frame < step);
+      if(c2) c2.classList.toggle('active', frame >= step && frame < step * 2);
+      if(c3) c3.classList.toggle('active', frame >= step * 2 && frame < step * 3);
+      if(c4) c4.classList.toggle('active', frame >= step * 3);
+    }
+  });
+</script>
+</body>
+</html>
